@@ -35,25 +35,16 @@ const functions = {
             }
         }
     },
-    possibleValues: (sudoku, indx) => { },
-    possibleHorizontalValues: (sudoku, indx) => {
-        let row = rowIndex(indx);
-    },
-    possibleVerticalValues: () => null,
-    possibleGridValues: () => null,
-    getValues: (sudoku, indx, dimension) => {
+    getCollidingValues: (sudoku, indx) => {
         let values = [];
         for (let i = 0; i < sudoku.length; i++) {
-            if (collidingIndex(indx, i)) {
+            if (functions.collidingIndex(indx, i)) {
                 values.push(sudoku[i]);
             }
         }
+        return values;
     },
-    test: (x) => { console.log("hello") },
     collidingIndex: (indx, indx2) => {
-        // console.log("rowIndex " + typeof possibleValues);
-        // console.log("test " + typeof test);
-        // functions.test();
         if (functions.rowIndex(indx) === functions.rowIndex(indx2) ||
             functions.columnIndex(indx) === functions.columnIndex(indx2) ||
             functions.subgridIndex(indx) === functions.subgridIndex(indx2)

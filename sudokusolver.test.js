@@ -12,10 +12,23 @@ const sudoku = [
     , 7, , , 4, 2, , , 1
 ];
 
+test('Check colliding values', () => {
+    let collidingValues = functions.getCollidingValues(sudoku, 1);
+    expect(collidingValues).toContain(8);
+    expect(collidingValues).toContain(1);
+    expect(collidingValues).toContain(3);
+    expect(collidingValues).toContain(2);
+    expect(collidingValues).toContain(9);
+    expect(collidingValues).toContain(7);
+    expect(collidingValues).not.toContain(4);
+    expect(collidingValues).not.toContain(5);
+    expect(collidingValues).not.toContain(6);
+});
+
 
 test('Check next empty slot', () => {
     expect(functions.nextFreeSlot(sudoku)).toBe(1);
-})
+});
 
 test('Check row of empty slot', () => {
     expect(functions.rowIndex(0)).toBe(0);
@@ -23,7 +36,7 @@ test('Check row of empty slot', () => {
     expect(functions.rowIndex(9)).toBe(1);
     expect(functions.rowIndex(10)).toBe(1);
     expect(functions.rowIndex(80)).toBe(8);
-})
+});
 
 test('Check column of empty slot', () => {
     expect(functions.columnIndex(0)).toBe(0);
@@ -31,7 +44,7 @@ test('Check column of empty slot', () => {
     expect(functions.columnIndex(9)).toBe(0);
     expect(functions.columnIndex(10)).toBe(1);
     expect(functions.columnIndex(80)).toBe(8);
-})
+});
 
 test('Check subgrid of empty slot', () => {
     expect(functions.subgridIndex(0)).toBe(0);
@@ -39,7 +52,7 @@ test('Check subgrid of empty slot', () => {
     expect(functions.subgridIndex(3)).toBe(1);
     expect(functions.subgridIndex(10)).toBe(0);
     expect(functions.subgridIndex(80)).toBe(8);
-})
+});
 
 test('Check if two indexes collide', () => {
     expect(functions.collidingIndex(0, 2)).toBe(true);
@@ -47,4 +60,4 @@ test('Check if two indexes collide', () => {
     expect(functions.collidingIndex(0, 13)).toBe(false);
     expect(functions.collidingIndex(8, 80)).toBe(true);
     expect(functions.collidingIndex(0, 80)).toBe(false);
-})
+});
