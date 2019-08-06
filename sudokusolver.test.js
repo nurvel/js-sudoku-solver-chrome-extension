@@ -1,4 +1,4 @@
-const functions = require('./sudokusolver');
+const sudokusolver = require('./sudokusolver');
 
 const sudoku = [
     8, , , 1, 3, , , 2, ,
@@ -13,7 +13,7 @@ const sudoku = [
 ];
 
 test('Check colliding values', () => {
-    let collidingValues = functions.getCollidingValues(sudoku, 1);
+    let collidingValues = sudokusolver.getCollidingValues(sudoku, 1);
     expect(collidingValues).toContain(8);
     expect(collidingValues).toContain(1);
     expect(collidingValues).toContain(3);
@@ -27,37 +27,37 @@ test('Check colliding values', () => {
 
 
 test('Check next empty slot', () => {
-    expect(functions.nextFreeSlot(sudoku)).toBe(1);
+    expect(sudokusolver.nextFreeSlot(sudoku)).toBe(1);
 });
 
 test('Check row of empty slot', () => {
-    expect(functions.rowIndex(0)).toBe(0);
-    expect(functions.rowIndex(1)).toBe(0);
-    expect(functions.rowIndex(9)).toBe(1);
-    expect(functions.rowIndex(10)).toBe(1);
-    expect(functions.rowIndex(80)).toBe(8);
+    expect(sudokusolver.rowIndex(0)).toBe(0);
+    expect(sudokusolver.rowIndex(1)).toBe(0);
+    expect(sudokusolver.rowIndex(9)).toBe(1);
+    expect(sudokusolver.rowIndex(10)).toBe(1);
+    expect(sudokusolver.rowIndex(80)).toBe(8);
 });
 
 test('Check column of empty slot', () => {
-    expect(functions.columnIndex(0)).toBe(0);
-    expect(functions.columnIndex(1)).toBe(1);
-    expect(functions.columnIndex(9)).toBe(0);
-    expect(functions.columnIndex(10)).toBe(1);
-    expect(functions.columnIndex(80)).toBe(8);
+    expect(sudokusolver.columnIndex(0)).toBe(0);
+    expect(sudokusolver.columnIndex(1)).toBe(1);
+    expect(sudokusolver.columnIndex(9)).toBe(0);
+    expect(sudokusolver.columnIndex(10)).toBe(1);
+    expect(sudokusolver.columnIndex(80)).toBe(8);
 });
 
 test('Check subgrid of empty slot', () => {
-    expect(functions.subgridIndex(0)).toBe(0);
-    expect(functions.subgridIndex(1)).toBe(0);
-    expect(functions.subgridIndex(3)).toBe(1);
-    expect(functions.subgridIndex(10)).toBe(0);
-    expect(functions.subgridIndex(80)).toBe(8);
+    expect(sudokusolver.subgridIndex(0)).toBe(0);
+    expect(sudokusolver.subgridIndex(1)).toBe(0);
+    expect(sudokusolver.subgridIndex(3)).toBe(1);
+    expect(sudokusolver.subgridIndex(10)).toBe(0);
+    expect(sudokusolver.subgridIndex(80)).toBe(8);
 });
 
 test('Check if two indexes collide', () => {
-    expect(functions.collidingIndex(0, 2)).toBe(true);
-    expect(functions.collidingIndex(0, 9)).toBe(true);
-    expect(functions.collidingIndex(0, 13)).toBe(false);
-    expect(functions.collidingIndex(8, 80)).toBe(true);
-    expect(functions.collidingIndex(0, 80)).toBe(false);
+    expect(sudokusolver.collidingIndex(0, 2)).toBe(true);
+    expect(sudokusolver.collidingIndex(0, 9)).toBe(true);
+    expect(sudokusolver.collidingIndex(0, 13)).toBe(false);
+    expect(sudokusolver.collidingIndex(8, 80)).toBe(true);
+    expect(sudokusolver.collidingIndex(0, 80)).toBe(false);
 });
