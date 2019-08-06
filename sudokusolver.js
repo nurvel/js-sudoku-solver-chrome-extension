@@ -35,10 +35,33 @@ const functions = {
             }
         }
     },
-    possibleHorizontalValues: (sudoku) => {
+    possibleValues: (sudoku, indx) => { },
+    possibleHorizontalValues: (sudoku, indx) => {
+        let row = rowIndex(indx);
     },
     possibleVerticalValues: () => null,
-    possibleGridValues: () => null
+    possibleGridValues: () => null,
+    getValues: (sudoku, indx, dimension) => {
+        let values = [];
+        for (let i = 0; i < sudoku.length; i++) {
+            if (collidingIndex(indx, i)) {
+                values.push(sudoku[i]);
+            }
+        }
+    },
+    test: (x) => { console.log("hello") },
+    collidingIndex: (indx, indx2) => {
+        // console.log("rowIndex " + typeof possibleValues);
+        // console.log("test " + typeof test);
+        // functions.test();
+        if (functions.rowIndex(indx) === functions.rowIndex(indx2) ||
+            functions.columnIndex(indx) === functions.columnIndex(indx2) ||
+            functions.subgridIndex(indx) === functions.subgridIndex(indx2)
+        ) {
+            return true;
+        }
+        return false;
+    }
 
 }
 

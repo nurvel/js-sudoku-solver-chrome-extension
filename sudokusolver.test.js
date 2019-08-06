@@ -40,3 +40,11 @@ test('Check subgrid of empty slot', () => {
     expect(functions.subgridIndex(10)).toBe(0);
     expect(functions.subgridIndex(80)).toBe(8);
 })
+
+test('Check if two indexes collide', () => {
+    expect(functions.collidingIndex(0, 2)).toBe(true);
+    expect(functions.collidingIndex(0, 9)).toBe(true);
+    expect(functions.collidingIndex(0, 13)).toBe(false);
+    expect(functions.collidingIndex(8, 80)).toBe(true);
+    expect(functions.collidingIndex(0, 80)).toBe(false);
+})
