@@ -32,3 +32,11 @@ test('Check column of empty slot', () => {
     expect(functions.columnIndex(10)).toBe(1);
     expect(functions.columnIndex(80)).toBe(8);
 })
+
+test('Check subgrid of empty slot', () => {
+    expect(functions.subgridIndex(0)).toBe(0);
+    expect(functions.subgridIndex(1)).toBe(0);
+    expect(functions.subgridIndex(3)).toBe(1);
+    expect(functions.subgridIndex(10)).toBe(0);
+    expect(functions.subgridIndex(80)).toBe(8);
+})
