@@ -1,19 +1,5 @@
 const sudokuURL = 'https://www.websudoku.com/';
-
-
-const sudoku = [
-    8, , , 1, 3, , , 2, ,
-    2, , , , , 6, 1, , 9,
-    , 9, , , , , 5, , 3,
-    5, , 9, , 7, , 6, , 2,
-    , , 2, , , , 8, , ,
-    1, , 7, , 8, , 9, , 4,
-    4, , 3, , , , , 5, ,
-    9, , 5, 6, , , , , 8,
-    , 7, , , 4, 2, , , 1];
-
-console.log(sudoku.length);
-console.log(sudoku[1]);
+const possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const functions = {
 
@@ -24,9 +10,19 @@ const functions = {
             }
         }
     },
-    possibleHorizontal: () => null,
-    possibleVertical: () => null,
-    possibleGrid:() => null
+    rowIndex: (indx) => {
+        return Math.floor(indx / 9);
+        let juttu = Math.floor((indx % 9) / 10);
+        console.log(juttu);
+        return juttu;
+        return Math.floor(indx % 9.0);
+    },
+    columnIndex: (indx) = {},
+    gridIndex: (indx) = {},
+    possibleHorizontalValues: (sudoku) => {
+    },
+    possibleVerticalValues: () => null,
+    possibleGridValues: () => null
 
 }
 

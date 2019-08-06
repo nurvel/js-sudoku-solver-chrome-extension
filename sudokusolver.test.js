@@ -16,3 +16,11 @@ const sudoku = [
 test('Check next empty slot', () => {
     expect(functions.nextFreeSlot(sudoku)).toBe(1);
 })
+
+test('Check row of empty slot', () => {
+    expect(functions.rowIndex(0)).toBe(0);
+    expect(functions.rowIndex(1)).toBe(0);
+    expect(functions.rowIndex(9)).toBe(1);
+    expect(functions.rowIndex(10)).toBe(1);
+    expect(functions.rowIndex(80)).toBe(8);
+})
