@@ -24,3 +24,11 @@ test('Check row of empty slot', () => {
     expect(functions.rowIndex(10)).toBe(1);
     expect(functions.rowIndex(80)).toBe(8);
 })
+
+test('Check column of empty slot', () => {
+    expect(functions.columnIndex(0)).toBe(0);
+    expect(functions.columnIndex(1)).toBe(1);
+    expect(functions.columnIndex(9)).toBe(0);
+    expect(functions.columnIndex(10)).toBe(1);
+    expect(functions.columnIndex(80)).toBe(8);
+})

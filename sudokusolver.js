@@ -12,13 +12,11 @@ const functions = {
     },
     rowIndex: (indx) => {
         return Math.floor(indx / 9);
-        let juttu = Math.floor((indx % 9) / 10);
-        console.log(juttu);
-        return juttu;
-        return Math.floor(indx % 9.0);
     },
-    columnIndex: (indx) = {},
-    gridIndex: (indx) = {},
+    columnIndex: (indx) => {
+        return indx % 9;
+    },
+    gridIndex: (indx) => { },
     possibleHorizontalValues: (sudoku) => {
     },
     possibleVerticalValues: () => null,
