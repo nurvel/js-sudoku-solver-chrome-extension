@@ -1,0 +1,15 @@
+{
+  "name": "js-sudoku-solver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sudokusolver.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
+}
