@@ -12,6 +12,51 @@ const sudoku = [
     , 7, , , 4, 2, , , 1
 ];
 
+const sudokuFilledWrong = [
+    , 3, 5, 6, 1, 4, 8, 9, 2,
+    8, 4, 2, 9, 7, 3, 5, 6, 1,
+    9, 6, 1, 2, 8, 5, 3, 7, 4,
+    7, , , , , , , , ,
+    , , , , , , , , ,
+    , , , , , , , , ,
+    , , , , , , , , ,
+    , , , , , , , , ,
+    , , , , , , , ,
+];
+
+test('Check available values in incorrect sudoku', () => {
+    let availableValues = sudokusolver.getAvailableValues(sudokuFilledWrong, 0);
+    expect(availableValues.length).toBe(0);
+    expect(availableValues).not.toContain(8);
+    expect(availableValues).not.toContain(1);
+    expect(availableValues).not.toContain(3);
+    expect(availableValues).not.toContain(2);
+    expect(availableValues).not.toContain(9);
+    expect(availableValues).not.toContain(7);
+    expect(availableValues).not.toContain(4);
+    expect(availableValues).not.toContain(5);
+    expect(availableValues).not.toContain(6);
+});
+
+test('Total free slots', () => {
+    let freeValues = sudokusolver.totalFreeSlots(sudoku);
+    expect(freeValues).toBe(47);
+})
+
+test('Check available values', () => {
+    let collidingValues = sudokusolver.getAvailableValues(sudoku, 1);
+    expect(collidingValues).not.toContain(8);
+    expect(collidingValues).not.toContain(1);
+    expect(collidingValues).not.toContain(3);
+    expect(collidingValues).not.toContain(2);
+    expect(collidingValues).not.toContain(9);
+    expect(collidingValues).not.toContain(7);
+    expect(collidingValues).toContain(4);
+    expect(collidingValues).toContain(5);
+    expect(collidingValues).toContain(6);
+});
+
+
 test('Check colliding values', () => {
     let collidingValues = sudokusolver.getCollidingValues(sudoku, 1);
     expect(collidingValues).toContain(8);
