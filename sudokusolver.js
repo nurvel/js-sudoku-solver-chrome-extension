@@ -15,12 +15,17 @@ const subGridCoordinates = [
 
 const functions = {
 
+    totalFreeSlots: (sudoku) => {
+        let defined = sudoku.filter(x => x !== undefined).length;
+        return sudoku.length - defined;
+    },
     nextFreeSlot: (sudoku) => {
         for (let i = 0; i < sudoku.length; i++) {
             if (sudoku[i] === undefined) {
                 return i;
             }
         }
+        return null;
     },
     rowIndex: (indx) => {
         return Math.floor(indx / 9);
@@ -34,6 +39,12 @@ const functions = {
                 return i;
             }
         }
+    },
+    getAvailableValues: (sudoku, indx) => {
+        let collidingValues = functions.getCollidingValues(sudoku, indx);
+        return possibleValues.filter((value) => {
+            return !collidingValues.includes(value);
+        });
     },
     getCollidingValues: (sudoku, indx) => {
         let values = [];
@@ -53,6 +64,7 @@ const functions = {
         }
         return false;
     }
+
 
 }
 
