@@ -56,11 +56,9 @@ test('Check available values', () => {
     expect(collidingValues).toContain(6);
 });
 
-
-
 test('Check colliding values with sudoku filled wrong', () => {
     let collidingValues = sudokusolver.getCollidingValues(sudokuFilledWrong, 0);
-    // expect(collidingValues.length).toBe(0);
+    expect(collidingValues.length).toBeGreaterThanOrEqual(9);
     expect(collidingValues).toContain(8);
     expect(collidingValues).toContain(1);
     expect(collidingValues).toContain(3);
@@ -71,7 +69,6 @@ test('Check colliding values with sudoku filled wrong', () => {
     expect(collidingValues).toContain(5);
     expect(collidingValues).toContain(6);
 });
-
 
 test('Check colliding values', () => {
     let collidingValues = sudokusolver.getCollidingValues(sudoku, 1);
@@ -85,7 +82,6 @@ test('Check colliding values', () => {
     expect(collidingValues).not.toContain(5);
     expect(collidingValues).not.toContain(6);
 });
-
 
 test('Check next empty slot', () => {
     expect(sudokusolver.nextFreeSlot(sudoku)).toBe(1);
