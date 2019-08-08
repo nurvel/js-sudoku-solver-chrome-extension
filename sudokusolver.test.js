@@ -44,16 +44,16 @@ test('Total free slots', () => {
 })
 
 test('Check available values', () => {
-    let collidingValues = sudokusolver.getAvailableValues(sudoku, 1);
-    expect(collidingValues).not.toContain(8);
-    expect(collidingValues).not.toContain(1);
-    expect(collidingValues).not.toContain(3);
-    expect(collidingValues).not.toContain(2);
-    expect(collidingValues).not.toContain(9);
-    expect(collidingValues).not.toContain(7);
-    expect(collidingValues).toContain(4);
-    expect(collidingValues).toContain(5);
-    expect(collidingValues).toContain(6);
+    let availableValues = sudokusolver.getAvailableValues(sudoku, 1);
+    expect(availableValues).not.toContain(8);
+    expect(availableValues).not.toContain(1);
+    expect(availableValues).not.toContain(3);
+    expect(availableValues).not.toContain(2);
+    expect(availableValues).not.toContain(9);
+    expect(availableValues).not.toContain(7);
+    expect(availableValues).toContain(4);
+    expect(availableValues).toContain(5);
+    expect(availableValues).toContain(6);
 });
 
 test('Check colliding values with sudoku filled wrong', () => {
