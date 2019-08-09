@@ -18,6 +18,7 @@ function importSudoku() {
         sudoku.push(FormatedValue);
     }
     console.log("imported:" + sudoku);
+    return { resp: sudoku };
 }
 
 async function solveSudoku() {
@@ -25,6 +26,7 @@ async function solveSudoku() {
     solvedSudoku = [];
     solvedSudoku = await playSudoku(sudoku)
     console.log("solved:" + solvedSudoku);
+    return { resp: solvedSudoku };
 }
 
 function exportSudoku() {
@@ -47,17 +49,18 @@ function fillSudokuToPopUp() {
 
 chrome.runtime.onMessage.addListener(gotMessage);
 
-function gotMessage(message, sender, sendResponse) {
+async function gotMessage(message, sender, sendResponse) {
     console.log(message.txt);
 
     switch (message.txt) {
         case 'import':
             console.log("import content");
-            importSudoku();
+            sendResponse(importSudoku());
             break;
         case 'solve':
             console.log("solve content");
-            solveSudoku();
+            let obj = await solveSudoku();
+            sendResponse(obj);
             break;
         case 'export':
             console.log("export content");

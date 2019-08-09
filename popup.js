@@ -1,4 +1,6 @@
 
+let sudokuGridCSSselector = "td"; // input?
+
 function sendToContent(action) {
     console.log("sendToContent");
 
@@ -7,10 +9,27 @@ function sendToContent(action) {
         currentWindow: true
     }
     chrome.tabs.query(params, gotTab);
+
     function gotTab(tabs) {
         console.log("gotTabs");
-        chrome.tabs.sendMessage(tabs[0].id, action);
+        chrome.tabs.sendMessage(tabs[0].id, action, ((response) => {
+            console.log("res " + response);
+            if (response != undefined) {
+                updateSudokuGrid(response);
+            }
+        }));
     }
+
+}
+
+function updateSudokuGrid(sudoku) {
+    console.log("Update sudoku grid " + sudoku.resp);
+    let extensionSudokuGrid = document.querySelectorAll(sudokuGridCSSselector);
+    for (let i = 0; i < extensionSudokuGrid.length; i++) {
+        //console.log(extensionSudokuGrid[i] + " " + sudoku[i]);
+        extensionSudokuGrid[i].innerHTML = sudoku.resp[i];
+    }
+
 }
 
 function importSudoku() {
