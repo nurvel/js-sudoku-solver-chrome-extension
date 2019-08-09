@@ -10,26 +10,26 @@ let webSudokuGridCSSselector = "#letour div:not(#yunex82)";
 function importSudoku() {
     console.log("import sudoku");
     webSudokuGrid = document.querySelectorAll(webSudokuGridCSSselector);
-    //x.forEach(y => console.log(y.getAttribute("value")));
 
     for (let i of webSudokuGrid) {
         let value = i.innerHTML;
-        value = value === "" ? undefined : value;
-        sudoku.push(value);
-        //console.log(value);
+        let FormatedValue = value === "" ? undefined : parseInt(value);
+        sudoku.push(FormatedValue);
     }
-    console.log(sudoku);
+    console.log("imported:" + sudoku);
 }
 
 async function solveSudoku() {
     console.log("solve sudoku");
-    solvedPromise = await playSudoku(sudoku)
-    console.log("solved:" + solvedPromise);
+    solvedSudoku = await playSudoku(sudoku)
+    console.log("solved:" + solvedSudoku);
 }
 
-function exportSudoku(solvedSudoku) {
+function exportSudoku() {
     console.log("export sudoku");
+    console.log(webSudokuGrid);
     for (let i = 0; i < webSudokuGrid.length; i++) {
+        console.log(webSudokuGrid[i] + " " + solvedSudoku[i]);
         webSudokuGrid[i].innerHTML = solvedSudoku[i];
     }
 }

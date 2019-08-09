@@ -18,9 +18,7 @@ const functions = {
         return sudoku.length - defined;
     },
     getNextFreeSlot: (sudoku) => {
-        console.log("getNextFreeSlot");
         for (let i = 0; i < sudoku.length; i++) {
-            //if (sudoku[i] === undefined || sudoku[i] === "" || sudoku[i] === null) {
             if (sudoku[i] === undefined) {
                 return i;
             }

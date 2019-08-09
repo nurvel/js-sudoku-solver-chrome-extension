@@ -9,10 +9,8 @@ async function playSudoku(sudoku) {
 
     let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
-        console.log("no free slots - returning sudoku " + sudoku);
         return sudoku;
     }
-    console.log("got pass");
 
     let availableValues = functions.getAvailableValues(sudoku, nextFreeSlot);
     let candidatePromises = [];
@@ -40,7 +38,3 @@ function getBestCandidate(candidates) {
     }
     return bestCandidate;
 }
-
-// playSudoku(sudoku)
-//     .then((solved) => sudokuprint(solved))
-//     .catch((err) => console.log(err));
