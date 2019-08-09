@@ -1,28 +1,8 @@
 const sudokusolver = require('./sudokusolver');
+const sudokudata = require('./sudoku-data');
 
-const sudoku = [
-    8, , , 1, 3, , , 2, ,
-    2, , , , , 6, 1, , 9,
-    , 9, , , , , 5, , 3,
-    5, , 9, , 7, , 6, , 2,
-    , , 2, , , , 8, , ,
-    1, , 7, , 8, , 9, , 4,
-    4, , 3, , , , , 5, ,
-    9, , 5, 6, , , , , 8,
-    , 7, , , 4, 2, , , 1
-];
-
-const sudokuFilledWrong = [
-    , 3, 5, 6, 1, 4, 8, 9, 2,
-    8, 4, 2, 9, 7, 3, 5, 6, 1,
-    9, 6, 1, 2, 8, 5, 3, 7, 4,
-    7, , , , , , , , ,
-    , , , , , , , , ,
-    , , , , , , , , ,
-    , , , , , , , , ,
-    , , , , , , , , ,
-    , , , , , , , ,
-];
+const sudoku = sudokudata.testCorrect[0];
+const sudokuFilledWrong = sudokudata.testWrong[0];
 
 test('Check available values in incorrect sudoku', () => {
     let availableValues = sudokusolver.getAvailableValues(sudokuFilledWrong, 0);

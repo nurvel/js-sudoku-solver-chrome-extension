@@ -1,6 +1,4 @@
-const sudokuURL = 'https://www.websudoku.com/';
 const possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const subGridCoordinates = [
     [0, 1, 2, 9, 10, 11, 18, 19, 20],
     [3, 4, 5, 12, 13, 14, 21, 22, 23],
