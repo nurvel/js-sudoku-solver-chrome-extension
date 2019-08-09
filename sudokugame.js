@@ -2,7 +2,7 @@ const sudokusolver = require('./sudokusolver');
 const sudokuprint = require('./sudokuprint');
 const sudokudata = require('./sudoku-data');
 
-const sudoku = sudokudata.correct[1];
+const sudoku = sudokudata.correct[2];
 
 console.log(sudoku);
 
