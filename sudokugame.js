@@ -12,7 +12,7 @@ async function playSudoku(sudoku) {
         return sudoku;
     }
 
-    let availableValues = getAvailableValues(sudoku, nextFreeSlot);
+    let availableValues = functions.getAvailableValues(sudoku, nextFreeSlot);
     let candidatePromises = [];
 
     for (let value of availableValues) {
