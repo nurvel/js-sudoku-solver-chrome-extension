@@ -64,7 +64,7 @@ test('Check colliding values', () => {
 });
 
 test('Check next empty slot', () => {
-    expect(sudokusolver.nextFreeSlot(sudoku)).toBe(1);
+    expect(sudokusolver.getNextFreeSlot(sudoku)).toBe(1);
 });
 
 test('Check row of empty slot', () => {

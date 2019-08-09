@@ -17,7 +17,7 @@ const functions = {
         let defined = sudoku.filter(x => x !== undefined).length;
         return sudoku.length - defined;
     },
-    nextFreeSlot: (sudoku) => {
+    getNextFreeSlot: (sudoku) => {
         for (let i = 0; i < sudoku.length; i++) {
             if (sudoku[i] === undefined) {
                 return i;

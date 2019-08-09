@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sudoku Solver</title>
+    <script src="popup.js"></script>
+
+    <style>
+        html,
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            margin: 0;
+            min-height: 180px;
+            width: 300px;
+            text-align: center;
+            padding: 10px;
+        }
+
+        h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: 200;
+            margin: 0;
+        }
+
+        a:link,
+        a:visited {
+            color: #000000;
+            outline: 0;
+            text-decoration: none;
+
+        }
+
+        .modal-header {
+            border-bottom: 0.5px solid #dadada;
+            padding: 20px 22px;
+        }
+
+        .modal-content {
+            padding: 20px 22px;
+        }
+
+        .sudoku {
+            display: inline-block;
+        }
+
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        tr,
+        td {
+            height: 30px;
+            width: 30px;
+            padding: 0px;
+        }
+
+        input {
+            -webkit-appearance: none;
+            outline: none;
+            border: solid 0 #fff;
+            text-align: center;
+            margin: 0;
+            width: 25pt;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="modal-header">
+        <h1>Sudoku Solver
+        </h1>
+        <p>Solves sudokus in no time</p>
+    </div>
+
+    <div class="modal-content">
+        <div class="buttons">
+            <button type="button" id="import"> Import</button>
+            <button type="button" id="solve"> Solve</button>
+            <button type="button" id="export"> Export</button>
+        </div>
+    </div>
+
+    <div class="sudoku">
+
+        <table>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1">
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+    </div>
+
+
+</body>
+
+</html>

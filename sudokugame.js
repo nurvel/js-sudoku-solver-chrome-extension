@@ -1,19 +1,18 @@
-const sudokusolver = require('./sudokusolver');
-const sudokuprint = require('./sudokuprint');
-const sudokudata = require('./sudoku-data');
+// const sudokusolver = require('./sudokusolver');
+// const sudokuprint = require('./sudokuprint');
+// const sudokudata = require('./sudoku-data');
 
-const sudoku = sudokudata.correct[1];
-
-console.log(sudoku);
+// const sudoku = sudokudata.correct[1];
+//console.log(sudoku);
 
 async function playSudoku(sudoku) {
 
-    let nextFreeSlot = sudokusolver.nextFreeSlot(sudoku);
+    let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
         return sudoku;
     }
 
-    let availableValues = sudokusolver.getAvailableValues(sudoku, nextFreeSlot);
+    let availableValues = getAvailableValues(sudoku, nextFreeSlot);
     let candidatePromises = [];
 
     for (let value of availableValues) {
@@ -33,13 +32,13 @@ function getBestCandidate(candidates) {
     let bestCandidate;
     for (let i of candidates) {
         if (i === undefined) { continue; }
-        if (bestCandidate === undefined || sudokusolver.getAvailableValues(bestCandidate).length > sudokusolver.getAvailableValues(i).length) {
+        if (bestCandidate === undefined || getAvailableValues(bestCandidate).length > getAvailableValues(i).length) {
             bestCandidate = i;
         }
     }
     return bestCandidate;
 }
 
-playSudoku(sudoku)
-    .then((solved) => sudokuprint(solved))
-    .catch((err) => console.log(err));
+// playSudoku(sudoku)
+//     .then((solved) => sudokuprint(solved))
+//     .catch((err) => console.log(err));
