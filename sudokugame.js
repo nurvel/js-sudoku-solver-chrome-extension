@@ -4,12 +4,14 @@ const sudokudata = require('./sudoku-data');
 
 const sudoku = sudokudata.correct[2];
 
-console.log(sudoku);
+// console.log(sudoku);
+var testijuttu = 0;
 
 async function playSudoku(sudoku) {
 
     let nextFreeSlot = sudokusolver.nextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
+        testijuttu = testijuttu + 1;
         return sudoku;
     }
 
@@ -41,5 +43,13 @@ function getBestCandidate(candidates) {
 }
 
 playSudoku(sudoku)
-    .then((solved) => sudokuprint(solved))
+    .then((solved) => {
+        sudokuprint(solved);
+        console.log("kväs: " + testijuttu);
+    })
     .catch((err) => console.log(err));
+
+module.exports = {
+    playSudoku: playSudoku,
+    getBestCandidate: getBestCandidate
+}
