@@ -31,6 +31,7 @@ async function solveSudoku() {
 
 function exportSudoku() {
     console.log("export sudoku");
+    // TODO: Should export the grid in popup - not variables in content.js
     for (let i = 0; i < webSudokuGrid.length; i++) {
         // console.log(webSudokuGrid[i] + " " + solvedSudoku[i]);
         webSudokuGrid[i].innerHTML = solvedSudoku[i];
@@ -41,10 +42,6 @@ function resetValues() {
     sudoku = [];
     solvedSudoku = [];
     webSudokuGrid;
-}
-
-function fillSudokuToPopUp() {
-    // todo fill the table in popup. Should this be in popup.js?
 }
 
 chrome.runtime.onMessage.addListener(gotMessage);
