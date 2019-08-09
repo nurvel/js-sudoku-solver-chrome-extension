@@ -14,23 +14,17 @@ function importSudoku() {
 
     for (let i of webSudokuGrid) {
         let value = i.innerHTML;
+        value = value === "" ? undefined : value;
         sudoku.push(value);
         //console.log(value);
     }
     console.log(sudoku);
 }
 
-function solveSudoku() {
+async function solveSudoku() {
     console.log("solve sudoku");
-    solvedPromise = playSudoku(sudoku)
-        .then((solved) => solved)
-        .catch((err) => console.error(err));;
-    // solvedSudoku = await Promise.all(solvedPromise);
-
-    // .then((solved) => sudokuprint(solved))
-    // .catch((err) => console.log(err));
-
-    console.log(solvedPromise);
+    solvedPromise = await playSudoku(sudoku)
+    console.log("solved:" + solvedPromise);
 }
 
 function exportSudoku(solvedSudoku) {

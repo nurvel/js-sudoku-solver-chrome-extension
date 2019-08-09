@@ -9,8 +9,10 @@ async function playSudoku(sudoku) {
 
     let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
+        console.log("no free slots - returning sudoku " + sudoku);
         return sudoku;
     }
+    console.log("got pass");
 
     let availableValues = functions.getAvailableValues(sudoku, nextFreeSlot);
     let candidatePromises = [];
@@ -32,7 +34,7 @@ function getBestCandidate(candidates) {
     let bestCandidate;
     for (let i of candidates) {
         if (i === undefined) { continue; }
-        if (bestCandidate === undefined || getAvailableValues(bestCandidate).length > getAvailableValues(i).length) {
+        if (bestCandidate === undefined || functions.getAvailableValues(bestCandidate).length > functions.getAvailableValues(i).length) {
             bestCandidate = i;
         }
     }
