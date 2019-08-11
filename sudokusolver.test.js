@@ -4,6 +4,20 @@ const sudokudata = require('./sudoku-data');
 const sudoku = sudokudata.testCorrect[0];
 const sudokuFilledWrong = sudokudata.testWrong[0];
 
+
+
+test('All empty indexes has available values - true', () => {
+    let availableValues = sudokusolver.allEmptyIndexesHasPossibleValues(sudoku, 0);
+    expect(availableValues).toBe(true);
+
+});
+
+test('All empty indexes has available values - false', () => {
+    let availableValues = sudokusolver.allEmptyIndexesHasPossibleValues(sudokuFilledWrong, 0);
+    expect(availableValues).toBe(false);
+});
+
+
 test('Check available values in incorrect sudoku', () => {
     let availableValues = sudokusolver.getAvailableValues(sudokuFilledWrong, 0);
     expect(availableValues.length).toBe(0);

@@ -7,7 +7,8 @@
         "128": "icon_128.png"
     },
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
     "content_scripts": [
         {
@@ -15,8 +16,6 @@
                 "<all_urls>"
             ],
             "js": [
-                "sudokugame.js",
-                "sudokusolver.js",
                 "content.js"
             ],
             "run_at": "document_end"

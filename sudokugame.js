@@ -12,6 +12,11 @@ async function playSudoku(sudoku) {
         return sudoku;
     }
 
+    // let allIndexesHasAvailableValues = functions.allEmptyIndexesHasPossibleValues(sudoku);
+    // if (!allIndexesHasAvailableValues) {
+    //     return sudoku;
+    // }
+
     let availableValues = functions.getAvailableValues(sudoku, nextFreeSlot);
     let candidatePromises = [];
 

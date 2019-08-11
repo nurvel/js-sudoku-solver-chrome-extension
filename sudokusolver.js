@@ -61,9 +61,17 @@ const functions = {
             return true;
         }
         return false;
+    },
+    allEmptyIndexesHasPossibleValues: (sudoku) => {
+        for (let i of sudoku) {
+            let available = functions.getAvailableValues(sudoku, i);
+            if (i == undefined && available.length === 0) {
+                return false;
+            }
+        }
+        return true;
     }
-
 
 }
 
-// module.exports = functions;
+ //module.exports = functions;
