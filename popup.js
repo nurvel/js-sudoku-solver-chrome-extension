@@ -61,7 +61,7 @@ async function importSudoku() {
 
     if (sudoku != undefined) {
         updateSudokuGrid(sudoku);
-        saveToStorage(sudoku);
+        saveToStorage(sudoku.resp);
     }
 }
 
@@ -135,3 +135,6 @@ window.addEventListener("load", function () {
     let el = document.getElementById("clear");
     el.addEventListener("click", clearSudokuGrid);
 });
+
+
+// TODO: check state of extention sudoku - update state of local storage? Does not save state if modified after import if toggle extention
