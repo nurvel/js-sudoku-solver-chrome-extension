@@ -1,21 +1,24 @@
-const sudokusolver = require('./sudokusolver');
-const sudokuprint = require('./sudokuprint');
-const sudokudata = require('./sudoku-data');
+ //const functions = require('./sudokusolver');
+import { functions } from './sudokusolver.js';
 
-const sudoku = sudokudata.correct[3];
-
-// console.log(sudoku);
-var testijuttu = 0;
+// const sudokuprint = require('./sudokuprint');
+// const sudokudata = require('./sudoku-data');
+// const sudoku = sudokudata.correct[1];
 
 async function playSudoku(sudoku) {
 
-    let nextFreeSlot = sudokusolver.nextFreeSlot(sudoku);
+    let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
         testijuttu = testijuttu + 1;
         return sudoku;
     }
 
-    let availableValues = sudokusolver.getAvailableValues(sudoku, nextFreeSlot);
+    // let allIndexesHasAvailableValues = functions.allEmptyIndexesHasPossibleValues(sudoku);
+    // if (!allIndexesHasAvailableValues) {
+    //     return sudoku;
+    // }
+
+    let availableValues = functions.getAvailableValues(sudoku, nextFreeSlot);
     let candidatePromises = [];
 
     for (let value of availableValues) {
@@ -27,7 +30,6 @@ async function playSudoku(sudoku) {
 
     let candidates = await Promise.all(candidatePromises);
     let bestCandidate = getBestCandidate(candidates);
-
     return bestCandidate;
 }
 
@@ -35,21 +37,12 @@ function getBestCandidate(candidates) {
     let bestCandidate;
     for (let i of candidates) {
         if (i === undefined) { continue; }
-        if (bestCandidate === undefined || sudokusolver.getAvailableValues(bestCandidate).length > sudokusolver.getAvailableValues(i).length) {
+        if (bestCandidate === undefined || functions.getAvailableValues(bestCandidate).length > functions.getAvailableValues(i).length) {
             bestCandidate = i;
         }
     }
     return bestCandidate;
 }
 
-playSudoku(sudoku)
-    .then((solved) => {
-        sudokuprint(solved);
-        console.log("kväs: " + testijuttu);
-    })
-    .catch((err) => console.log(err));
-
-module.exports = {
-    playSudoku: playSudoku,
-    getBestCandidate: getBestCandidate
-}
+export { playSudoku };
+//module.exports = playSudoku;

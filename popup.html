@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sudoku Solver</title>
+    <script type="module"  src="popup.js"></script>
+    <script type="module" src="sudokugame.js"></script>
+    <script type="module" src="sudokusolver.js"></script>
+
+    <style>
+        html,
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            margin: 0;
+            min-height: 180px;
+            width: 370px;
+            text-align: center;
+            /* padding-left: 5px;
+            padding-right: 5px; */
+            padding-bottom: 5px;
+        }
+
+        h1 {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        p {
+            font-size: 16px;
+            font-weight: 200;
+            margin: 0;
+        }
+
+        a:link,
+        a:visited {
+            color: #000000;
+            outline: 0;
+            text-decoration: none;
+            font-size: 10px;
+        }
+
+        .modal-header {
+            border-bottom: 0.5px solid #dadada;
+            padding: 15px 5px;
+            width: 70%;
+            display: inline-block;
+        }
+
+        .modal-content {
+            padding: 20px 22px;
+        }
+
+        .modal-footer {
+            padding: 5px 22px;
+        }
+
+        .sudoku {
+            display: inline-block;
+        }
+
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        tr,
+        td {
+            height: 30px;
+            width: 30px;
+            padding: 0px;
+        }
+
+        td:first-child {
+            border-left: solid;
+        }
+
+        td:last-child {
+            border-right: solid;
+        }
+
+        td:nth-child(3n) {
+            border-right: solid;
+        }
+
+        tr:first-child {
+            border-top: solid;
+        }
+
+        tr:last-child {
+            border-bottom: solid;
+        }
+
+        tr:nth-child(3n) {
+            border-bottom: solid;
+        }
+
+        input {
+            -webkit-appearance: none;
+            outline: none;
+            border: solid 0 #fff;
+            text-align: center;
+            margin: 0;
+            width: 25pt;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="modal-header">
+        <h1>Sudoku Solver
+        </h1>
+        <p>Solves sudokus in no time</p>
+    </div>
+
+    <div class="modal-content">
+        <div class="buttons">
+            <button type="button" id="import">Import</button>
+            <button type="button" id="solve">Solve</button>
+            <button type="button" id="export">Export</button>
+            <button type="button" id="clear">Clear</button>
+        </div>
+    </div>
+
+    <div class="sudoku">
+
+        <table>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+                <td>
+                    <input autocomplete="off" maxlength="1" value="" readonly>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <div class="footer-content">
+            <p><a href="https://www.nurmi.dev" target="_blank"> © nurmi.dev</a></Veli-Pekka>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

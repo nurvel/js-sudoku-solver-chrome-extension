@@ -1,8 +1,27 @@
-const sudokusolver = require('./sudokusolver');
-const sudokudata = require('./sudoku-data');
+//const functions = require('./sudokusolver.js');
+//const sudokusolver = functions;
 
+import { functions } from './sudokusolver.js';
+const sudokusolver = functions;
+
+const sudokudata = require('./sudoku-data');
 const sudoku = sudokudata.testCorrect[0];
 const sudokuFilledWrong = sudokudata.testWrong[0];
+
+
+
+
+test('All empty indexes has available values - true', () => {
+    let availableValues = sudokusolver.allEmptyIndexesHasPossibleValues(sudoku, 0);
+    expect(availableValues).toBe(true);
+
+});
+
+test('All empty indexes has available values - false', () => {
+    let availableValues = sudokusolver.allEmptyIndexesHasPossibleValues(sudokuFilledWrong, 0);
+    expect(availableValues).toBe(false);
+});
+
 
 test('Check available values in incorrect sudoku', () => {
     let availableValues = sudokusolver.getAvailableValues(sudokuFilledWrong, 0);
@@ -64,7 +83,7 @@ test('Check colliding values', () => {
 });
 
 test('Check next empty slot', () => {
-    expect(sudokusolver.nextFreeSlot(sudoku)).toBe(1);
+    expect(sudokusolver.getNextFreeSlot(sudoku)).toBe(1);
 });
 
 test('Check row of empty slot', () => {
