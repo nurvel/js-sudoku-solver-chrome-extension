@@ -5,11 +5,11 @@ import { functions } from './sudokusolver.js';
 // const sudokudata = require('./sudoku-data');
 // const sudoku = sudokudata.correct[1];
 
-
 async function playSudoku(sudoku) {
 
     let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
+        testijuttu = testijuttu + 1;
         return sudoku;
     }
 
