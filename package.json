@@ -14,8 +14,17 @@
     "jest": "^24.8.0"
   },
   "jest": {
+    "roots": [
+      "<rootDir>",
+      "./"
+    ],
     "modulePaths": [
-      "<rootDir>/"
+      "<rootDir>",
+      "./"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "./"
     ]
   },
   "babel": {

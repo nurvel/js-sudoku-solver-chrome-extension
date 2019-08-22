@@ -1,10 +1,13 @@
-//const sudokusolver = require('./sudokusolver');
-import { functions } from '/sudokusolver.js';
-let sudokusolver = functions;
+//const functions = require('./sudokusolver.js');
+//const sudokusolver = functions;
+
+import { functions } from './sudokusolver.js';
+const sudokusolver = functions;
 
 const sudokudata = require('./sudoku-data');
 const sudoku = sudokudata.testCorrect[0];
 const sudokuFilledWrong = sudokudata.testWrong[0];
+
 
 
 

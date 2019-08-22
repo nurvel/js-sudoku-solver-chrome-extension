@@ -1,7 +1,7 @@
 //const sudokusolver = require('./sudokusolver');
 //import { sudokusolver } from './sudokusolver.js';
 
-import { playSudoku } from '/sudokugame.js';
+import { playSudoku } from 'sudokugame.js';
 
 
 const sudokudata = require('./sudoku-data');
