@@ -1,6 +1,4 @@
-const sudokuURL = 'https://www.websudoku.com/';
 const possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
 const subGridCoordinates = [
     [0, 1, 2, 9, 10, 11, 18, 19, 20],
     [3, 4, 5, 12, 13, 14, 21, 22, 23],
@@ -19,7 +17,7 @@ const functions = {
         let defined = sudoku.filter(x => x !== undefined).length;
         return sudoku.length - defined;
     },
-    nextFreeSlot: (sudoku) => {
+    getNextFreeSlot: (sudoku) => {
         for (let i = 0; i < sudoku.length; i++) {
             if (sudoku[i] === undefined) {
                 return i;
@@ -63,9 +61,55 @@ const functions = {
             return true;
         }
         return false;
+    },
+    allEmptyIndexesHasPossibleValues: (sudoku) => {
+        for (let i of sudoku) {
+            let available = functions.getAvailableValues(sudoku, i);
+            if (i == undefined && available.length === 0) {
+                return false;
+            }
+        }
+        return true;
+    },
+    validateSudoku: (sudoku) => {
+
+        // 1. subgrids have on only unique values
+        // 2. rows have only unique values
+        // 3. columns have only unique values
+
+        // row stack has max 3
+        // columnstack has max 3
+
+
+
+    },
+    getSRowStack: (index) => {
+        let rowIndex = rowIndex(index);
+        if (rowIndex == 0 && rowIndex <= 2) {
+            return 0;
+        }
+        if (rowIndex >= 3 && rowIndex <= 5) {
+            return 1;
+        }
+        if (rowIndex == 6 && rowIndex <= 8) {
+            return 2;
+
+        }
     }
+    // getColumnStack: (index) => {
+    //     let columnIndex = columnIndex(index);
+    //     if (columnIndex == 0 && columnIndex <= 2) {
+    //         return 0;
+    //     }
+    //     if (columnIndex >= 3 && columnIndex <= 5) {
+    //         return 1;
+    //     }
+    //     if (columnIndex == 6 && columnIndex <= 8) {
+    //         return 2;
 
-
+    //     }
+    // }
 }
 
-module.exports = functions;
+//module.exports = functions;
+export { functions };

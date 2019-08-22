@@ -10,6 +10,30 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "jest": "^24.8.0"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>",
+      "./"
+    ],
+    "modulePaths": [
+      "<rootDir>",
+      "./"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "./"
+    ]
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": [
+          "transform-es2015-modules-commonjs"
+        ]
+      }
+    }
   }
 }
