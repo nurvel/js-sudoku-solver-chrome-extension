@@ -9,7 +9,6 @@ async function playSudoku(sudoku) {
 
     let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
-        testijuttu = testijuttu + 1;
         return sudoku;
     }
 
