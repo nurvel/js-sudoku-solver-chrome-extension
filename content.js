@@ -1,4 +1,6 @@
 //const sudokusolver = require('./sudokusolver');
+//import { sudokugame } from './sudokugame.js';
+
 
 console.log("Content extention go!");
 

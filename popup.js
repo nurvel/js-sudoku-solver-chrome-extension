@@ -1,3 +1,6 @@
+//const playSudoku = require('./sudokugame.js');
+import { playSudoku } from '/sudokugame.js';
+
 let sudokuGridCSSselector = "td input";
 
 async function sendToContent(action) {
@@ -67,7 +70,10 @@ async function importSudoku() {
 
 async function solveSudoku() {
     console.log("solve popup");
+
     let sudokuFromGrid = await readSudokuGrid();
+
+    // TODO: validate sudoku before calling solve - user might have given input so that the baseline is no longer valid
     let solvelSudoku = await playSudoku(sudokuFromGrid);
 
     if (solvelSudoku != undefined) {
@@ -86,6 +92,7 @@ async function exportSudoku() {
 function clearSudokuGrid() {
     console.log("clear sudoku");
     updateSudokuGrid({ resp: [] });
+    saveToStorage([]);
 }
 
 function saveToStorage(value) {
@@ -108,6 +115,15 @@ function getFromStorage() {
     })
 }
 
+async function updateStateAfterInput() {
+    console.log("updateStateAfterInput");
+    let sudokuFromGrid = await readSudokuGrid();
+    console.log(sudokuFromGrid);
+    saveToStorage(sudokuFromGrid);
+    updateSudokuGrid(sudokuFromGrid);
+}
+
+// updated grid when pop-up opens
 window.addEventListener("load", function () {
     getFromStorage()
         .then((response) => {
@@ -135,6 +151,15 @@ window.addEventListener("load", function () {
     let el = document.getElementById("clear");
     el.addEventListener("click", clearSudokuGrid);
 });
+
+window.addEventListener("load", function () {
+    let inputs = document.querySelectorAll("input");
+    inputs.forEach((inputField) => {
+        inputField.addEventListener("change", updateStateAfterInput);
+    });
+});
+
+
 
 
 // TODO: check state of extention sudoku - update state of local storage? Does not save state if modified after import if toggle extention

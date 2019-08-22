@@ -1,9 +1,10 @@
-// const sudokusolver = require('./sudokusolver');
+ //const functions = require('./sudokusolver');
+import { functions } from '/sudokusolver.js';
+
 // const sudokuprint = require('./sudokuprint');
 // const sudokudata = require('./sudoku-data');
-
 // const sudoku = sudokudata.correct[1];
-//console.log(sudoku);
+
 
 async function playSudoku(sudoku) {
 
@@ -29,7 +30,6 @@ async function playSudoku(sudoku) {
 
     let candidates = await Promise.all(candidatePromises);
     let bestCandidate = getBestCandidate(candidates);
-
     return bestCandidate;
 }
 
@@ -43,3 +43,6 @@ function getBestCandidate(candidates) {
     }
     return bestCandidate;
 }
+
+export { playSudoku };
+//module.exports = playSudoku;

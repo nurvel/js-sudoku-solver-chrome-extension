@@ -70,8 +70,46 @@ const functions = {
             }
         }
         return true;
-    }
+    },
+    validateSudoku: (sudoku) => {
 
+        // 1. subgrids have on only unique values
+        // 2. rows have only unique values
+        // 3. columns have only unique values
+
+        // row stack has max 3
+        // columnstack has max 3
+
+
+
+    },
+    getSRowStack: (index) => {
+        let rowIndex = rowIndex(index);
+        if (rowIndex == 0 && rowIndex <= 2) {
+            return 0;
+        }
+        if (rowIndex >= 3 && rowIndex <= 5) {
+            return 1;
+        }
+        if (rowIndex == 6 && rowIndex <= 8) {
+            return 2;
+
+        }
+    }
+    // getColumnStack: (index) => {
+    //     let columnIndex = columnIndex(index);
+    //     if (columnIndex == 0 && columnIndex <= 2) {
+    //         return 0;
+    //     }
+    //     if (columnIndex >= 3 && columnIndex <= 5) {
+    //         return 1;
+    //     }
+    //     if (columnIndex == 6 && columnIndex <= 8) {
+    //         return 2;
+
+    //     }
+    // }
 }
 
- //module.exports = functions;
+//module.exports = functions;
+export { functions };
