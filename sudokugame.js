@@ -1,4 +1,4 @@
- //const functions = require('./sudokusolver');
+//const functions = require('./sudokusolver');
 import { functions } from './sudokusolver.js';
 
 // const sudokuprint = require('./sudokuprint');
@@ -6,6 +6,7 @@ import { functions } from './sudokusolver.js';
 // const sudoku = sudokudata.correct[1];
 
 async function playSudoku(sudoku) {
+
 
     let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
