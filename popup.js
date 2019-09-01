@@ -74,12 +74,18 @@ async function solveSudoku() {
     let sudokuFromGrid = await readSudokuGrid();
 
     // TODO: validate sudoku before calling solve - user might have given input so that the baseline is no longer valid
-    let solvelSudoku = await playSudoku(sudokuFromGrid);
 
-    if (solvelSudoku != undefined) {
-        updateSudokuGrid({ resp: solvelSudoku });
-        saveToStorage(solvelSudoku);
+    try {
+        let solvelSudoku = await playSudoku(sudokuFromGrid);
+        if (solvelSudoku != undefined) {
+            updateSudokuGrid({ resp: solvelSudoku });
+            saveToStorage(solvelSudoku);
+        }
+    } catch (error) {
+        console.error("Sudoku not valid - cannot solve");
     }
+
+
 }
 
 async function exportSudoku() {

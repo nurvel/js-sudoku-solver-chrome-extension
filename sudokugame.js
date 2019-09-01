@@ -7,16 +7,20 @@ import { functions } from './sudokusolver.js';
 
 async function playSudoku(sudoku) {
 
+    let valid = await functions.validateSudoku(sudoku);
 
+    if (!valid) {
+        throw ("Sudoku no valid!");
+    }
+
+    return solveSudoku(sudoku);
+}
+
+async function solveSudoku(sudoku) {
     let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
         return sudoku;
     }
-
-    // let allIndexesHasAvailableValues = functions.allEmptyIndexesHasPossibleValues(sudoku);
-    // if (!allIndexesHasAvailableValues) {
-    //     return sudoku;
-    // }
 
     let availableValues = functions.getAvailableValues(sudoku, nextFreeSlot);
     let candidatePromises = [];
@@ -24,7 +28,7 @@ async function playSudoku(sudoku) {
     for (let value of availableValues) {
         let candidate = [...sudoku];
         candidate[nextFreeSlot] = value;
-        let candidatesBestChildPromise = playSudoku(candidate);
+        let candidatesBestChildPromise = solveSudoku(candidate);
         candidatePromises.push(candidatesBestChildPromise);
     }
 
@@ -44,5 +48,5 @@ function getBestCandidate(candidates) {
     return bestCandidate;
 }
 
-export { playSudoku };
+export { playSudoku, solveSudoku };
 //module.exports = playSudoku;

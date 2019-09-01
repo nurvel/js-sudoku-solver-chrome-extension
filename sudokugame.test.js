@@ -1,4 +1,4 @@
-import { playSudoku } from 'sudokugame.js';
+import { solveSudoku } from 'sudokugame.js';
 const sudokudata = require('./sudoku-data');
 //const playSudoku = require('./sudokugame');
 
@@ -7,13 +7,13 @@ const sudokuFilledWrong = sudokudata.testWrong[0];
 
 test('Test solver to return 81 values', async () => {
     expect.assertions(1);
-    let solvedSudoku = await playSudoku(sudoku);
+    let solvedSudoku = await solveSudoku(sudoku);
     expect(solvedSudoku.length).toBe(81);
 });
 
 test('Test solver to return every value 9 times', async () => {
     expect.assertions(9);
-    let solvedSudoku = await playSudoku(sudoku);
+    let solvedSudoku = await solveSudoku(sudoku);
 
     let one = solvedSudoku.filter(x => x == 1);
     let two = solvedSudoku.filter(x => x == 2);

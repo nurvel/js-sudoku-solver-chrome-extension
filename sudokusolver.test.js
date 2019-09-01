@@ -146,10 +146,14 @@ test('Test getColumnStack by index', () => {
 
 
 
-test('Test validate sudoku - valid input', () => {
-    expect(sudokusolver.validateSudoku(sudoku)).toBe(true);
+test('Test validate sudoku - valid input', async () => {
+    expect.assertions(1);
+    let valid = await sudokusolver.validateSudoku(sudoku);
+    expect(valid).toBe(true);
 });
 
-test('Test validate sudoku - invalid input', () => {
-    expect(sudokusolver.validateSudoku(sudokuFilledWrong)).toBe(false);
+test('Test validate sudoku - invalid input', async () => {
+    expect.assertions(1);
+    let valid = await sudokusolver.validateSudoku(sudokuFilledWrong);
+    expect(valid).toBe(false);
 });

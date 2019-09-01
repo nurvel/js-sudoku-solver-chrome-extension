@@ -1,4 +1,4 @@
-const process = require('process');
+//const process = require('process');
 
 const possibleValues = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const subGridCoordinates = [
@@ -41,7 +41,6 @@ const functions = {
         }
     },
     getAvailableValues: (sudoku, indx) => {
-        // TODO: add column and row stack to validation
         let collidingValues = functions.getCollidingValues(sudoku, indx);
         return possibleValues.filter((value) => {
             return !collidingValues.includes(value);
@@ -80,93 +79,103 @@ const functions = {
         });
         return arr.length === uniqueL.length;
     },
-    validateSudoku: (sudoku) => {
-        //functions.printSudoku(sudoku);
+    validateSudoku: async (sudoku) => {
+        // TODO: Refactor - extract method
 
-        // 1. subgrids have on only unique values
-        // 2. rows have only unique values
-        // 3. columns have only unique values
-        let tepRows = [[], [], [], [], [], [], [], [], []];
-        let tempColumns = [[], [], [], [], [], [], [], [], []];
-        let tempSubGrids = [[], [], [], [], [], [], [], [], []];
-        // 4. row & clumn stack has max 3
-        let tempRowArray = [[], [], []];
-        let tempColumnArray = [[], [], []];
+        return new Promise((resolve, reject) => {
+            console.log("Validate sudoku start");
+            try {
 
-        // fill values from sudoku to temp arrays (expext)
-        for (let i = 0; i < sudoku.length; i++) {
-            if (sudoku[i] != undefined) {
+                functions.printSudoku(sudoku);
 
-                let row = functions.rowIndex(i);
-                tepRows[row].push(sudoku[i]);
+                // 1. subgrids have on only unique values
+                // 2. rows have only unique values
+                // 3. columns have only unique values
+                let tepRows = [[], [], [], [], [], [], [], [], []];
+                let tempColumns = [[], [], [], [], [], [], [], [], []];
+                let tempSubGrids = [[], [], [], [], [], [], [], [], []];
+                // 4. row & clumn stack has max 3
+                let tempRowArray = [[], [], []];
+                let tempColumnArray = [[], [], []];
 
-                let column = functions.columnIndex(i);
-                tempColumns[column].push(sudoku[i]);
+                // fill values from sudoku to temp arrays (expext)
+                for (let i = 0; i < sudoku.length; i++) {
+                    if (sudoku[i] != undefined) {
 
-                let subG = functions.subgridIndex(i);
-                tempSubGrids[subG].push(sudoku[i]);
+                        let row = functions.rowIndex(i);
+                        tepRows[row].push(sudoku[i]);
 
-                let indexVal = sudoku[i];
-                // get row/colum stack (0-2)
-                let rowS = functions.getRowStack(i);
-                let columnS = functions.getColumnStack(i);
-                // set value how many times has the value appeared
-                let tempR = parseInt(tempRowArray[rowS][indexVal]);
-                tempRowArray[rowS][indexVal] = isNaN(tempR) ? 1 : tempR + 1;
-                let tempC = parseInt(tempColumnArray[columnS][indexVal]);
-                tempColumnArray[columnS][indexVal] = isNaN(tempC) ? 1 : tempC + 1;
-            }
-        }
+                        let column = functions.columnIndex(i);
+                        tempColumns[column].push(sudoku[i]);
 
-        // PRINTING
-        // for (let i = 0; i < tepRows.length; i++) {
-        //     // console.log("tepRows: " + tepRows[i]);
-        //     // console.log("tempColumns: " + tempColumns[i]);
-        //     // console.log("tempSubGrids: " + tempSubGrids[i]);
-        //     console.log(functions.noDublicatesInArray(tepRows[i]));
-        //     console.log(functions.noDublicatesInArray(tempColumns[i]));
-        //     console.log(functions.noDublicatesInArray(tempSubGrids[i]));
-        // }
-        // for (let i = 0; i < tempRowArray.length; i++) {
-        //     console.log("rowArray: " + tempRowArray[i]);
-        // }
-        // for (let i = 0; i < tempColumnArray.length; i++) {
-        //     console.log("columnArray: " + tempColumnArray[i]);
-        // }
+                        let subG = functions.subgridIndex(i);
+                        tempSubGrids[subG].push(sudoku[i]);
 
-        let valid = true;
-
-
-        for (let i = 0; i < tepRows.length; i++) {
-            if (!functions.noDublicatesInArray(tepRows[i]) ||
-                !functions.noDublicatesInArray(tempColumns[i]) ||
-                !functions.noDublicatesInArray(tempSubGrids[i])) {
-                valid = false;
-            }
-        }
-
-        // test valid
-        for (let i = 0; i < tempRowArray.length; i++) {
-            for (let x = 0; x < tempRowArray[i].length; x++) {
-                if (tempRowArray[i][x] > 3) {
-                    valid = false;
+                        let indexVal = sudoku[i];
+                        // get row/colum stack (0-2)
+                        let rowS = functions.getRowStack(i);
+                        let columnS = functions.getColumnStack(i);
+                        // set value how many times has the value appeared
+                        let tempR = parseInt(tempRowArray[rowS][indexVal]);
+                        tempRowArray[rowS][indexVal] = isNaN(tempR) ? 1 : tempR + 1;
+                        let tempC = parseInt(tempColumnArray[columnS][indexVal]);
+                        tempColumnArray[columnS][indexVal] = isNaN(tempC) ? 1 : tempC + 1;
+                    }
                 }
-            }
-        }
-        for (let i = 0; i < tempColumnArray.length; i++) {
-            for (let x = 0; x < tempColumnArray[i].length; x++) {
-                if (tempColumnArray[i][x] > 3) {
-                    valid = false;
-                }
-            }
-        }
 
-        return valid;
+                // PRINTING
+                // for (let i = 0; i < tepRows.length; i++) {
+                //     // console.log("tepRows: " + tepRows[i]);
+                //     // console.log("tempColumns: " + tempColumns[i]);
+                //     // console.log("tempSubGrids: " + tempSubGrids[i]);
+                //     console.log(functions.noDublicatesInArray(tepRows[i]));
+                //     console.log(functions.noDublicatesInArray(tempColumns[i]));
+                //     console.log(functions.noDublicatesInArray(tempSubGrids[i]));
+                // }
+                // for (let i = 0; i < tempRowArray.length; i++) {
+                //     console.log("rowArray: " + tempRowArray[i]);
+                // }
+                // for (let i = 0; i < tempColumnArray.length; i++) {
+                //     console.log("columnArray: " + tempColumnArray[i]);
+                // }
+
+                let valid = true;
+                // test valid
+
+                for (let i = 0; i < tepRows.length; i++) {
+                    if (!functions.noDublicatesInArray(tepRows[i]) ||
+                        !functions.noDublicatesInArray(tempColumns[i]) ||
+                        !functions.noDublicatesInArray(tempSubGrids[i])) {
+                        valid = false;
+                    }
+                }
+
+                for (let i = 0; i < tempRowArray.length; i++) {
+                    for (let x = 0; x < tempRowArray[i].length; x++) {
+                        if (tempRowArray[i][x] > 3) {
+                            valid = false;
+                        }
+                    }
+                }
+                for (let i = 0; i < tempColumnArray.length; i++) {
+                    for (let x = 0; x < tempColumnArray[i].length; x++) {
+                        if (tempColumnArray[i][x] > 3) {
+                            valid = false;
+                        }
+                    }
+                }
+
+                //return valid;
+                resolve(valid);
+
+            } catch (error) {
+                reject("Error reading popup sudoku grid");
+            }
+        });
 
     },
     getRowStack: (index) => {
         let ri = functions.rowIndex(index);
-        //console.log("row" + ri);
         if (ri >= 0 && ri <= 2) {
             return 0;
         }
@@ -191,22 +200,32 @@ const functions = {
     },
     printSudoku: (sudoku) => {
 
+        // TODO: FIX TO WORK WO PROCESS
+
+        let val = "";
         for (let i = 0; i < sudoku.length; i++) {
-            let val = sudoku[i] === undefined ? 0 : sudoku[i];
-            process.stdout.write(val + " ");
+            val += sudoku[i] === undefined ? 0 : sudoku[i];
+            //process.stdout.write(val + " ");
+            val += " ";
 
             if ((i + 1) % 9 == 0) {
-                process.stdout.write("\n");
+                //process.stdout.write("\n");
+                //console.log(val);
+                val = "\n";
             }
 
             if ((i + 1) % 3 == 0 && (i + 1) % 9 != 0) {
-                process.stdout.write("| ");
+                //process.stdout.write("| ");
+                val += "| ";
             }
 
             if ((i + 1) % 27 == 0 && i != 80) {
-                process.stdout.write("---------------------\n");
+                //process.stdout.write("---------------------\n");
+                //console.log(("---------------------\n"));
+                val += "---------------------\n";
             }
         }
+        console.log(val);
     }
 }
 
