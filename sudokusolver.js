@@ -41,6 +41,7 @@ const functions = {
         }
     },
     getAvailableValues: (sudoku, indx) => {
+        // TODO: add column and row stack to validation
         let collidingValues = functions.getCollidingValues(sudoku, indx);
         return possibleValues.filter((value) => {
             return !collidingValues.includes(value);
@@ -73,60 +74,78 @@ const functions = {
         }
         return true;
     },
+    noDublicatesInArray: (arr) => {
+        let uniqueL = arr.filter(function (value, index, self) {
+            return self.indexOf(value) === index;
+        });
+        return arr.length === uniqueL.length;
+    },
     validateSudoku: (sudoku) => {
+        //functions.printSudoku(sudoku);
 
         // 1. subgrids have on only unique values
         // 2. rows have only unique values
         // 3. columns have only unique values
-
-        // row stack has max 3
-        // columnstack has max 3
-
-        // functions.printSudoku(sudoku);
-
-        // init arrays
+        let tepRows = [[], [], [], [], [], [], [], [], []];
+        let tempColumns = [[], [], [], [], [], [], [], [], []];
+        let tempSubGrids = [[], [], [], [], [], [], [], [], []];
+        // 4. row & clumn stack has max 3
         let tempRowArray = [[], [], []];
-        for (let i = 0; i < 3; i++) {
-            for (let x = 0; x < 8; x++) {
-                tempRowArray[i].push([]);
-            }
-        }
-
         let tempColumnArray = [[], [], []];
-        for (let i = 0; i < 3; i++) {
-            for (let x = 0; x < 8; x++) {
-                tempColumnArray[i].push([]);
-            }
-        }
 
         // fill values from sudoku to temp arrays (expext)
         for (let i = 0; i < sudoku.length; i++) {
             if (sudoku[i] != undefined) {
+
+                let row = functions.rowIndex(i);
+                tepRows[row].push(sudoku[i]);
+
+                let column = functions.columnIndex(i);
+                tempColumns[column].push(sudoku[i]);
+
+                let subG = functions.subgridIndex(i);
+                tempSubGrids[subG].push(sudoku[i]);
+
                 let indexVal = sudoku[i];
-
                 // get row/colum stack (0-2)
-                let row = functions.getRowStack(i);
-                let column = functions.getColumnStack(i);
-
+                let rowS = functions.getRowStack(i);
+                let columnS = functions.getColumnStack(i);
                 // set value how many times has the value appeared
-                let tempR = parseInt(tempRowArray[row][indexVal]);
-                tempRowArray[row][indexVal] = isNaN(tempR) ? 1 : tempR + 1;
-                let tempC = parseInt(tempColumnArray[column][indexVal]);
-                tempColumnArray[column][indexVal] = isNaN(tempC) ? 1 : tempC + 1;
+                let tempR = parseInt(tempRowArray[rowS][indexVal]);
+                tempRowArray[rowS][indexVal] = isNaN(tempR) ? 1 : tempR + 1;
+                let tempC = parseInt(tempColumnArray[columnS][indexVal]);
+                tempColumnArray[columnS][indexVal] = isNaN(tempC) ? 1 : tempC + 1;
             }
         }
 
         // PRINTING
+        // for (let i = 0; i < tepRows.length; i++) {
+        //     // console.log("tepRows: " + tepRows[i]);
+        //     // console.log("tempColumns: " + tempColumns[i]);
+        //     // console.log("tempSubGrids: " + tempSubGrids[i]);
+        //     console.log(functions.noDublicatesInArray(tepRows[i]));
+        //     console.log(functions.noDublicatesInArray(tempColumns[i]));
+        //     console.log(functions.noDublicatesInArray(tempSubGrids[i]));
+        // }
         // for (let i = 0; i < tempRowArray.length; i++) {
         //     console.log("rowArray: " + tempRowArray[i]);
         // }
-        // console.log("----");
         // for (let i = 0; i < tempColumnArray.length; i++) {
         //     console.log("columnArray: " + tempColumnArray[i]);
         // }
 
-        // test valid
         let valid = true;
+
+
+        for (let i = 0; i < tepRows.length; i++) {
+            if (!functions.noDublicatesInArray(tepRows[i]) ||
+                !functions.noDublicatesInArray(tempColumns[i]) ||
+                !functions.noDublicatesInArray(tempSubGrids[i])) {
+                valid = false;
+            }
+        }
+
+        // test valid
         for (let i = 0; i < tempRowArray.length; i++) {
             for (let x = 0; x < tempRowArray[i].length; x++) {
                 if (tempRowArray[i][x] > 3) {
@@ -134,7 +153,6 @@ const functions = {
                 }
             }
         }
-
         for (let i = 0; i < tempColumnArray.length; i++) {
             for (let x = 0; x < tempColumnArray[i].length; x++) {
                 if (tempColumnArray[i][x] > 3) {
