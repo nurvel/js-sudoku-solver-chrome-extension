@@ -29,6 +29,7 @@ async function sendToContent(action) {
 
 function updateSudokuGrid(sudoku) {
     console.log("Update sudoku grid " + sudoku.resp);
+    errorVisibility("hidden");
     let extensionSudokuGrid = document.querySelectorAll(sudokuGridCSSselector);
     for (let i = 0; i < extensionSudokuGrid.length; i++) {
         if (sudoku.resp[i] != null) {
@@ -42,6 +43,7 @@ function updateSudokuGrid(sudoku) {
 async function readSudokuGrid() {
     return new Promise((resolve, reject) => {
         console.log("Read sudoku from popup grid");
+        errorVisibility("hidden");
         try {
             let extensionSudokuGrid = document.querySelectorAll(sudokuGridCSSselector);
             let sudoku = [];
@@ -59,6 +61,7 @@ async function readSudokuGrid() {
 
 async function importSudoku() {
     console.log("import popup");
+    errorVisibility("hidden");
     let msg = { txt: "import" }
     let sudoku = await sendToContent(msg);
 
@@ -70,6 +73,7 @@ async function importSudoku() {
 
 async function solveSudoku() {
     console.log("solve popup");
+    errorVisibility("hidden");
 
     let sudokuFromGrid = await readSudokuGrid();
 
@@ -82,6 +86,8 @@ async function solveSudoku() {
             saveToStorage(solvelSudoku);
         }
     } catch (error) {
+        errorVisibility("visible");
+        //document.getElementsByClassName("error-msg")[0].style.visibility = "visible";
         console.error("Sudoku not valid - cannot solve");
     }
 
@@ -90,6 +96,7 @@ async function solveSudoku() {
 
 async function exportSudoku() {
     console.log("export popup");
+    errorVisibility("hidden");
     let sudokuFromGrid = await readSudokuGrid();
     let msg = { txt: "export", sudoku: sudokuFromGrid }
     sendToContent(msg);
@@ -97,6 +104,7 @@ async function exportSudoku() {
 
 function clearSudokuGrid() {
     console.log("clear sudoku");
+    errorVisibility("hidden");
     updateSudokuGrid({ resp: [] });
     saveToStorage([]);
 }
@@ -164,6 +172,11 @@ window.addEventListener("load", function () {
         inputField.addEventListener("change", updateStateAfterInput);
     });
 });
+
+function errorVisibility(visibility) {
+    document.getElementsByClassName("error-msg")[0].style.visibility = visibility;
+
+}
 
 
 

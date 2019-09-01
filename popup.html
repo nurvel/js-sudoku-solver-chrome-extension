@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sudoku Solver</title>
-    <script type="module"  src="popup.js"></script>
+    <script type="module" src="popup.js"></script>
     <script type="module" src="sudokugame.js"></script>
     <script type="module" src="sudokusolver.js"></script>
 
@@ -46,14 +46,24 @@
         }
 
         .modal-header {
-            border-bottom: 0.5px solid #dadada;
-            padding: 15px 5px;
+            /* border-bottom: 0.5px solid #dadada; */
+            padding: 10px 5px;
             width: 70%;
             display: inline-block;
         }
 
         .modal-content {
             padding: 20px 22px;
+        }
+
+        .error-msg {
+            position: absolute;
+            z-index: 5;
+            top: 65px;
+            color: red;
+            left: 25%;
+            visibility: hidden; 
+            /*hidden*/
         }
 
         .modal-footer {
@@ -126,6 +136,9 @@
     </div>
 
     <div class="modal-content">
+        <div class="error-msg">
+            Error - sudoku is not valid
+        </div>
         <div class="buttons">
             <button type="button" id="import">Import</button>
             <button type="button" id="solve">Solve</button>

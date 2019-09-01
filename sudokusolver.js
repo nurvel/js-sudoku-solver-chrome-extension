@@ -86,7 +86,12 @@ const functions = {
             console.log("Validate sudoku start");
             try {
 
-                functions.printSudoku(sudoku);
+                //functions.printSudoku(sudoku);
+
+                console.log(sudoku);
+                if (functions.totalFreeSlots(sudoku) === 81) {
+                    resolve(false);
+                }
 
                 // 1. subgrids have on only unique values
                 // 2. rows have only unique values
@@ -166,6 +171,7 @@ const functions = {
                 }
 
                 //return valid;
+                console.log("validation completed");
                 resolve(valid);
 
             } catch (error) {
