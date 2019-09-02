@@ -172,3 +172,12 @@ test('Test validate sudoku - valid input - debugvalidatation', async () => {
     let valid = await sudokusolver.validateSudoku(debugvalidatation);
     expect(valid).toBe(true);
 });
+
+
+test('isValidValue', () => {
+    let valid = sudokusolver.isValidValue(sudoku, 0);
+    let nonValid = sudokusolver.isValidValue(sudokuFilledWrong, 0);
+    expect(valid).toBe(true);
+    expect(nonValid).toBe(false);
+});
+

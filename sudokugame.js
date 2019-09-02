@@ -101,11 +101,23 @@ async function solveBackTracking(sudoku) {
 
 }
 
-async function solveBackTrackingNonRecursive(sudoku){
+async function solveBackTrackingNonRecursive(sudoku) {
 
     let solved = false;
+    let lockedOrgindexes = (sudoku) => {
+        let arr = [];
+        for (let i = 0; i < sudoku.length; i++) {
+            if (sudoku[i] != null) {
+                arr.push[i];
+            }
+        }
+    }
 
-    while(!solved){
+
+    while (!solved) {
+
+        let nextFreeSlot = functions.getNextFreeSlot(sudoku);
+
 
     }
 
