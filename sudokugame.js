@@ -18,7 +18,8 @@ async function playSudoku(sudoku) {
     }
 
     console.log("start solve");
-    let solvedSudoku = await solveBackTracking(sudoku);
+    // different algos available
+    let solvedSudoku = await solveSudoku(sudoku);
     console.log("end solve");
     console.log(solvedSudoku);
 
@@ -67,7 +68,6 @@ function getBestCandidate(candidates) {
     return bestCandidate;
 }
 
-// backtracking algo due evil sudokus cause run out of stack
 async function solveBackTracking(sudoku) {
     console.log("trying: " + sudoku);
 
@@ -101,30 +101,53 @@ async function solveBackTracking(sudoku) {
 
 }
 
-async function solveBackTrackingNonRecursive(sudoku) {
+async function solveBackTrackingNonRecursive(inputSudoku) {
 
-    let solved = false;
-    let lockedOrgindexes = (sudoku) => {
-        let arr = [];
-        for (let i = 0; i < sudoku.length; i++) {
-            if (sudoku[i] != null) {
-                arr.push[i];
-            }
+    let sudoku = [...inputSudoku];
+    let lockedOrgindexes = [];
+    for (let i = 0; i < sudoku.length; i++) {
+        if (sudoku[i] != null) {
+            lockedOrgindexes.push(i);
         }
     }
 
+    let pointer = 0;
+    let solved = false;
 
     while (!solved) {
 
-        let nextFreeSlot = functions.getNextFreeSlot(sudoku);
+        if (functions.isValidValue(sudoku, pointer) || lockedOrgindexes.includes(pointer)) {
+            //console.log("value " + sudoku[pointer] + " OK in index " + pointer + " - move to next pointer");
+            pointer++;
+        } else {
+            sudoku[pointer] = sudoku[pointer] == null ? 1 : sudoku[pointer] + 1;
+            //console.log("increment value in index " + pointer + " to " + sudoku[pointer]);
+        }
 
+        if (sudoku[pointer] > 9) {
+            //console.log("index " + pointer + " higher than 9 : " + sudoku[pointer]);
+            sudoku[pointer] = undefined;
+            pointer--;
+            while (lockedOrgindexes.includes(pointer)) {
+                pointer--;
+            }
+            sudoku[pointer] = sudoku[pointer] + 1;
+            //console.log("increment previous non-locked index " + pointer + " to value " + sudoku[pointer]);
+        }
+
+        if (functions.totalFreeSlots(sudoku) === 0 && functions.isValidValue(sudoku, pointer)) {
+            //console.log("found solution: " + sudoku.length);
+            //console.log(sudoku);
+            solved = true;
+            break;
+        }
 
     }
 
-
+    return sudoku;
 
 }
 
 
-export { playSudoku, solveSudoku, solveBackTracking };
+export { playSudoku, solveSudoku, solveBackTracking, solveBackTrackingNonRecursive };
 //module.exports = playSudoku;

@@ -1,4 +1,4 @@
-import { solveSudoku, solveBackTracking } from 'sudokugame.js';
+import { solveSudoku, solveBackTracking, solveBackTrackingNonRecursive } from 'sudokugame.js';
 const sudokudata = require('./sudoku-data');
 const printSudoku = require('./sudokuprint');
 
@@ -7,7 +7,7 @@ const printSudoku = require('./sudokuprint');
 const sudoku = sudokudata.testCorrect[0];
 const sudokuFilledWrong = sudokudata.testWrong[0];
 const evil = sudokudata.evil;
-//const evil = sudokudata.juukeli;
+const juukeli = sudokudata.juukeli;
 
 
 
@@ -119,3 +119,32 @@ test('Backtracking algo  EVIL - Test solver to return every value 9 times', asyn
 
 });
 
+
+test('backtrack nonrecuresive', async () => {
+    expect.assertions(1);
+    let solvedSudoku = await solveBackTrackingNonRecursive(sudoku);
+    printSudoku(sudoku);
+    printSudoku(solvedSudoku);
+    expect(solvedSudoku.length).toBe(81);
+});
+
+test('backtrack nonrecuresive juukeli', async () => {
+    expect.assertions(1);
+    let solvedSudoku = await solveBackTrackingNonRecursive(juukeli);
+    printSudoku(juukeli);
+    printSudoku(solvedSudoku);
+    expect(solvedSudoku.length).toBe(81);
+});
+
+// solves in 176.604s
+test('backtrack nonrecuresive evil', async () => {
+    console.log(evil);
+    console.log("starting test");
+
+    expect.assertions(1);
+
+    let solvedSudoku = await solveBackTrackingNonRecursive(evil);
+    printSudoku(sudoku);
+    printSudoku(solvedSudoku);
+    expect(solvedSudoku.length).toBe(81);
+});

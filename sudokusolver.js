@@ -204,7 +204,6 @@ const functions = {
         let colliding = functions.getCollidingValues(sudoku, index);
         var countColliding = 0;
         colliding.forEach((x) => (x === value && countColliding++));
-        //console.log(countColliding);
         return countColliding < 2 && possibleValues.includes(value);
     },
     getRowStack: (index) => {
