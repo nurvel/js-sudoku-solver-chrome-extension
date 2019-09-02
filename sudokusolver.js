@@ -10,14 +10,22 @@ const subGridCoordinates = [
     [33, 34, 35, 42, 43, 44, 51, 52, 53],
     [54, 55, 56, 63, 64, 65, 72, 73, 74],
     [57, 58, 59, 66, 67, 68, 75, 76, 77],
-    [70, 61, 62, 69, 70, 71, 78, 79, 80]
+    [60, 61, 62, 69, 70, 71, 78, 79, 80]
 ]
 
 const functions = {
 
     totalFreeSlots: (sudoku) => {
-        let defined = sudoku.filter(x => x !== undefined).length;
-        return sudoku.length - defined;
+        // let defined = sudoku.filter(x => x !== undefined).length;
+        // return sudoku.length - defined;
+
+        let undef = 0;
+        for (let i = 0; i <= 80; i++) {
+            if (sudoku[i] === undefined) {
+                undef++;
+            }
+        }
+        return undef;
     },
     getNextFreeSlot: (sudoku) => {
         for (let i = 0; i < sudoku.length; i++) {
@@ -40,6 +48,9 @@ const functions = {
             }
         }
     },
+    // noUndefinedValues: (sudoku) => {
+
+    // },
     getAvailableValues: (sudoku, indx) => {
         let collidingValues = functions.getCollidingValues(sudoku, indx);
         return possibleValues.filter((value) => {
@@ -88,7 +99,7 @@ const functions = {
 
                 //functions.printSudoku(sudoku);
 
-                console.log(sudoku);
+                //console.log(sudoku);
                 if (functions.totalFreeSlots(sudoku) === 81) {
                     resolve(false);
                 }
@@ -104,17 +115,23 @@ const functions = {
                 let tempColumnArray = [[], [], []];
 
                 // fill values from sudoku to temp arrays (expext)
-                for (let i = 0; i < sudoku.length; i++) {
+                for (let i = 0; i < 81; i++) {
+                    console.log("outer loop -  fill values: " + i + " value: " + sudoku[i]);
+
                     if (sudoku[i] != undefined) {
 
                         let row = functions.rowIndex(i);
                         tepRows[row].push(sudoku[i]);
+                        console.log("row OK");
 
                         let column = functions.columnIndex(i);
                         tempColumns[column].push(sudoku[i]);
+                        console.log("column OK");
 
                         let subG = functions.subgridIndex(i);
+                        console.log(subG);
                         tempSubGrids[subG].push(sudoku[i]);
+                        console.log("subgrid OK");
 
                         let indexVal = sudoku[i];
                         // get row/colum stack (0-2)
@@ -127,6 +144,8 @@ const functions = {
                         tempColumnArray[columnS][indexVal] = isNaN(tempC) ? 1 : tempC + 1;
                     }
                 }
+
+                console.log("after fill values");
 
                 // PRINTING
                 // for (let i = 0; i < tepRows.length; i++) {
@@ -171,11 +190,11 @@ const functions = {
                 }
 
                 //return valid;
-                console.log("validation completed");
+                //console.log("validation completed");
                 resolve(valid);
 
             } catch (error) {
-                reject("Error reading popup sudoku grid");
+                reject("Error when validating: " + error);
             }
         });
 

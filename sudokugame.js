@@ -7,18 +7,37 @@ import { functions } from './sudokusolver.js';
 
 async function playSudoku(sudoku) {
 
+    console.log("start validate " + sudoku.length);
+    console.log(sudoku);
     let valid = await functions.validateSudoku(sudoku);
+    console.log("end validate " + valid);
 
     if (!valid) {
-        throw ("Sudoku no valid!");
+        console.log(sudoku);
+        throw ("Sudoku not valid!");
     }
 
-    return solveSudoku(sudoku);
+    console.log("start solve");
+    let solvedSudoku = await solveBackTracking(sudoku);
+    console.log("end solve");
+    console.log(solvedSudoku);
+
+    return solvedSudoku;
 }
 
 async function solveSudoku(sudoku) {
+    // console.log("start solveSudoku");
+
+    if (functions.totalFreeSlots(sudoku) === 0) {
+        console.log("found solution: " + sudoku.length);
+        console.log(sudoku);
+        return sudoku;
+    }
+
     let nextFreeSlot = functions.getNextFreeSlot(sudoku);
     if (nextFreeSlot === null) {
+        console.log("No more solutions to test");
+        console.log(sudoku);
         return sudoku;
     }
 
@@ -48,5 +67,52 @@ function getBestCandidate(candidates) {
     return bestCandidate;
 }
 
-export { playSudoku, solveSudoku };
+// backtracking algo due evil sudokus cause run out of stack
+async function solveBackTracking(sudoku) {
+    console.log("trying: " + sudoku);
+
+    try {
+        if (functions.getNextFreeSlot(sudoku) === null) {
+            console.log("Resolved!");
+            console.log(sudoku);
+            return (sudoku);
+        }
+
+        let nextFreeSlot = functions.getNextFreeSlot(sudoku);
+        let availableValues = functions.getAvailableValues(sudoku, nextFreeSlot);
+
+        for (let availableValue of availableValues) {
+            sudoku[nextFreeSlot] = availableValue;
+
+            let solution = await solveBackTracking(sudoku);
+
+            if (solution) {
+                //console.log(solution);
+                return (sudoku);
+            } else {
+                sudoku[nextFreeSlot] = undefined;
+            }
+        }
+
+    } catch (error) {
+        console.log("Bubuu " + error);
+        reject("I made an error :/ : " + error);
+    }
+
+}
+
+async function solveBackTrackingNonRecursive(sudoku){
+
+    let solved = false;
+
+    while(!solved){
+
+    }
+
+
+
+}
+
+
+export { playSudoku, solveSudoku, solveBackTracking };
 //module.exports = playSudoku;

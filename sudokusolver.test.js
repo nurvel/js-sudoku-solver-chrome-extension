@@ -7,7 +7,9 @@ const sudokusolver = functions;
 const sudokudata = require('./sudoku-data');
 const sudoku = sudokudata.testCorrect[0];
 const sudokuFilledWrong = sudokudata.testWrong[0];
-
+const evil = sudokudata.evil;
+const juukeli = sudokudata.juukeli;
+const debugvalidatation = sudokudata.debugvalidatation;
 
 
 
@@ -156,4 +158,17 @@ test('Test validate sudoku - invalid input', async () => {
     expect.assertions(1);
     let valid = await sudokusolver.validateSudoku(sudokuFilledWrong);
     expect(valid).toBe(false);
+});
+
+test('Test validate sudoku - valid input - evil', async () => {
+    expect.assertions(1);
+    let valid = await sudokusolver.validateSudoku(evil);
+    expect(valid).toBe(true);
+});
+
+
+test('Test validate sudoku - valid input - debugvalidatation', async () => {
+    expect.assertions(1);
+    let valid = await sudokusolver.validateSudoku(debugvalidatation);
+    expect(valid).toBe(true);
 });

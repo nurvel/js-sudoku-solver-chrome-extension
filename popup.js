@@ -52,9 +52,10 @@ async function readSudokuGrid() {
                 value = value === "" ? undefined : parseInt(value);
                 sudoku.push(value);
             }
+            console.log("sudo length: " + sudoku.length);
             resolve(sudoku);
         } catch (error) {
-            reject("Error reading popup sudoku grid");
+            reject("Error reading popup sudoku grid - " + error);
         }
     });
 }
@@ -76,8 +77,7 @@ async function solveSudoku() {
     errorVisibility("hidden");
 
     let sudokuFromGrid = await readSudokuGrid();
-
-    // TODO: validate sudoku before calling solve - user might have given input so that the baseline is no longer valid
+    console.log(sudokuFromGrid);
 
     try {
         let solvelSudoku = await playSudoku(sudokuFromGrid);
@@ -87,10 +87,8 @@ async function solveSudoku() {
         }
     } catch (error) {
         errorVisibility("visible");
-        //document.getElementsByClassName("error-msg")[0].style.visibility = "visible";
-        console.error("Sudoku not valid - cannot solve");
+        console.error("Sudoku not valid - cannot solve - " + error);
     }
-
 
 }
 
