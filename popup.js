@@ -187,7 +187,26 @@ function handlePopUpInput(element) {
 
 function updateValueAfterClick(event, target) {
 	console.log(event);
-	document.getElementById(target).innerHTML = event.srcElement.innerHTML;
+	let inputValue = event.srcElement.innerHTML;
+	switch (inputValue) {
+		case '0':
+			document.getElementById(target).innerHTML = '';
+			break;
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+			document.getElementById(target).innerHTML = inputValue;
+			break;
+		default:
+			console.log('Error updating sudoku grid with value: ' + inputValue);
+			break;
+	}
 	document.getElementsByClassName('number-inputter')[0].style.visibility = 'hidden';
 }
 
