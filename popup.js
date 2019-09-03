@@ -84,7 +84,7 @@ async function solveSudoku() {
 			saveToStorage(solvelSudoku);
 		}
 	} catch (error) {
-		errorVisibility('visible');
+		errorVisibility('visible', error);
 		console.error('Sudoku not valid - cannot solve - ' + error);
 	}
 }
@@ -134,8 +134,8 @@ async function updateStateAfterInput() {
 
 function numberSelectorPosition(event) {
 	let numberSelectorDOM = document.getElementsByClassName('number-inputter')[0];
-	numberSelectorDOM.style.left = event.clientX + 'px';
-	numberSelectorDOM.style.top = event.clientY + 'px';
+	numberSelectorDOM.style.left = event.clientX - 50 + 'px';
+	numberSelectorDOM.style.top = event.clientY - 50 + 'px';
 	numberSelectorDOM.style.visibility = 'visible';
 	console.log(event);
 	return event.target.id;
@@ -201,13 +201,15 @@ window.addEventListener('load', function() {
 			handlePopUpInput(element);
 		});
 	}
-	// inputs[0].addEventListener('click', (event) => {
-	// 	let element = numberSelectorPosition(event);
-	// 	handlePopUpInput(element);
-	// });
 });
 
-function errorVisibility(visibility) {
+function errorVisibility(visibility, msg) {
+	if (msg == null) {
+		document.getElementsByClassName('error-msg')[0].innerHTML = 'Error - sudoku is not valid';
+	} else {
+		document.getElementsByClassName('error-msg')[0].innerHTML = msg;
+	}
+
 	document.getElementsByClassName('error-msg')[0].style.visibility = visibility;
 }
 
