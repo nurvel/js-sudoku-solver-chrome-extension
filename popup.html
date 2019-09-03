@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sudoku Solver</title>
-    <script type="module"  src="popup.js"></script>
+    <script type="module" src="popup.js"></script>
     <script type="module" src="sudokugame.js"></script>
     <script type="module" src="sudokusolver.js"></script>
 
@@ -36,6 +36,16 @@
             font-weight: 200;
             margin: 0;
         }
+        .guide {
+            font-size: 13px;
+            font-weight: 200;
+            margin: 0;
+        }
+        .guide a:link {
+            font-size: 13px;
+            font-weight: 400;
+
+        }
 
         a:link,
         a:visited {
@@ -46,14 +56,24 @@
         }
 
         .modal-header {
-            border-bottom: 0.5px solid #dadada;
-            padding: 15px 5px;
+            /* border-bottom: 0.5px solid #dadada; */
+            padding: 10px 5px;
             width: 70%;
             display: inline-block;
         }
 
         .modal-content {
             padding: 20px 22px;
+        }
+
+        .error-msg {
+            position: absolute;
+            z-index: 5;
+            top: 82px;
+            color: red;
+            left: 32%;
+            visibility: hidden; 
+            /*hidden*/
         }
 
         .modal-footer {
@@ -113,19 +133,56 @@
             margin: 0;
             width: 25pt;
         }
+        .number-inputter {
+            visibility: hidden;
+            position: absolute;
+            z-index: 10;
+            background-color: lightgray;
+        }
+        .number-inputter td:hover {
+            background-color: salmon;
+        }
+
     </style>
 
 </head>
 
 <body>
 
+    <div class="number-inputter">
+        <table>
+            <tr>
+                <td class= "nr-input">1</td>
+                <td class= "nr-input">2</td>
+                <td class= "nr-input">3</td>
+            </tr>
+                <tr>
+                <td class= "nr-input">4</td>
+                <td class= "nr-input">5</td>
+                <td class= "nr-input">6</td>
+            </tr>
+            <tr>
+                <td class= "nr-input">7</td>
+                <td class= "nr-input">8</td>
+                <td class= "nr-input">9</td>
+            </tr>
+            <tr>
+                <td class= "nr-input">-</td>
+                <td class= "nr-input" colspan="2"> close</td>
+            </tr>
+        </table>
+    </div>
     <div class="modal-header">
         <h1>Sudoku Solver
         </h1>
         <p>Solves sudokus in no time</p>
+        <p class="guide">Import & export <a href ="http://www.free-sudoku.com"  target="_blank"> here</a> or manually.</p>
     </div>
 
     <div class="modal-content">
+        <div class="error-msg">
+            Error - sudoku is not valid
+        </div>
         <div class="buttons">
             <button type="button" id="import">Import</button>
             <button type="button" id="solve">Solve</button>
@@ -138,272 +195,110 @@
 
         <table>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="1"></td>
+                <td class="sudoku-grid" id="2"></td>
+                <td class="sudoku-grid" id="3"></td>
+                <td class="sudoku-grid" id="4"></td>
+                <td class="sudoku-grid" id="5"></td>
+                <td class="sudoku-grid" id="6"></td>
+                <td class="sudoku-grid" id="7"></td>
+                <td class="sudoku-grid" id="8"></td>
+                <td class="sudoku-grid" id="9"></td>
             </tr>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="10"></td>
+                <td class="sudoku-grid" id="11"></td>
+                <td class="sudoku-grid" id="12"></td>
+                <td class="sudoku-grid" id="13"></td>
+                <td class="sudoku-grid" id="14"></td>
+                <td class="sudoku-grid" id="15"></td>
+                <td class="sudoku-grid" id="16"></td>
+                <td class="sudoku-grid" id="17"></td>
+                <td class="sudoku-grid" id="18"></td>
             </tr>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="19"></td>
+                <td class="sudoku-grid" id="20"></td>
+                <td class="sudoku-grid" id="21"></td>
+                <td class="sudoku-grid" id="22"></td>
+                <td class="sudoku-grid" id="23"></td>
+                <td class="sudoku-grid" id="24"></td>
+                <td class="sudoku-grid" id="25"></td>
+                <td class="sudoku-grid" id="26"></td>
+                <td class="sudoku-grid" id="27"></td>
             </tr>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="28"></td>
+                <td class="sudoku-grid" id="29"></td>
+                <td class="sudoku-grid" id="30"></td>
+                <td class="sudoku-grid" id="31"></td>
+                <td class="sudoku-grid" id="32"></td>
+                <td class="sudoku-grid" id="33"></td>
+                <td class="sudoku-grid" id="34"></td>
+                <td class="sudoku-grid" id="35"></td>
+                <td class="sudoku-grid" id="36"></td>
             </tr>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="37"></td>
+                <td class="sudoku-grid" id="38"></td>
+                <td class="sudoku-grid" id="39"></td>
+                <td class="sudoku-grid" id="40"></td>
+                <td class="sudoku-grid" id="41"></td>
+                <td class="sudoku-grid" id="42"></td>
+                <td class="sudoku-grid" id="43"></td>
+                <td class="sudoku-grid" id="44"></td>
+                <td class="sudoku-grid" id="45"></td>
             </tr>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="46"></td>
+                <td class="sudoku-grid" id="47"></td>
+                <td class="sudoku-grid" id="48"></td>
+                <td class="sudoku-grid" id="49"></td>
+                <td class="sudoku-grid" id="50"></td>
+                <td class="sudoku-grid" id="51"></td>
+                <td class="sudoku-grid" id="52"></td>
+                <td class="sudoku-grid" id="53"></td>
+                <td class="sudoku-grid" id="54"></td>
             </tr>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="55"></td>
+                <td class="sudoku-grid" id="56"></td>
+                <td class="sudoku-grid" id="57"></td>
+                <td class="sudoku-grid" id="58"></td>
+                <td class="sudoku-grid" id="59"></td>
+                <td class="sudoku-grid" id="60"></td>
+                <td class="sudoku-grid" id="61"></td>
+                <td class="sudoku-grid" id="62"></td>
+                <td class="sudoku-grid" id="63"></td>
             </tr>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="64"></td>
+                <td class="sudoku-grid" id="65"></td>
+                <td class="sudoku-grid" id="66"></td>
+                <td class="sudoku-grid" id="67"></td>
+                <td class="sudoku-grid" id="68"></td>
+                <td class="sudoku-grid" id="69"></td>
+                <td class="sudoku-grid" id="70"></td>
+                <td class="sudoku-grid" id="71"></td>
+                <td class="sudoku-grid" id="72"></td>
             </tr>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
-                </td>
+                <td class="sudoku-grid" id="73"></td>
+                <td class="sudoku-grid" id="74"></td>
+                <td class="sudoku-grid" id="75"></td>
+                <td class="sudoku-grid" id="76"></td>
+                <td class="sudoku-grid" id="77"></td>
+                <td class="sudoku-grid" id="78"></td>
+                <td class="sudoku-grid" id="79"></td>
+                <td class="sudoku-grid" id="80"></td>
+                <td class="sudoku-grid" id="81"></td>
             </tr>
         </table>
     </div>
 
     <div class="modal-footer">
         <div class="footer-content">
-            <p><a href="https://www.nurmi.dev" target="_blank"> © nurmi.dev</a></Veli-Pekka>
+            <p><a href="https://www.nurmi.dev?utm_source=sudoku&utm_medium=chrome-extention&utm_campaign=portfolio" target="_blank"> © nurmi.dev</a></Veli-Pekka>
             </p>
         </div>
     </div>

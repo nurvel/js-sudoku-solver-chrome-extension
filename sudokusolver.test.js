@@ -7,7 +7,9 @@ const sudokusolver = functions;
 const sudokudata = require('./sudoku-data');
 const sudoku = sudokudata.testCorrect[0];
 const sudokuFilledWrong = sudokudata.testWrong[0];
-
+const evil = sudokudata.evil;
+const juukeli = sudokudata.juukeli;
+const debugvalidatation = sudokudata.debugvalidatation;
 
 
 
@@ -17,10 +19,10 @@ test('All empty indexes has available values - true', () => {
 
 });
 
-test('All empty indexes has available values - false', () => {
-    let availableValues = sudokusolver.allEmptyIndexesHasPossibleValues(sudokuFilledWrong, 0);
-    expect(availableValues).toBe(false);
-});
+// test('All empty indexes has available values - false', () => {
+//     let availableValues = sudokusolver.allEmptyIndexesHasPossibleValues(sudokuFilledWrong, 0);
+//     expect(availableValues).toBe(false);
+// });
 
 
 test('Check available values in incorrect sudoku', () => {
@@ -117,3 +119,65 @@ test('Check if two indexes collide', () => {
     expect(sudokusolver.collidingIndex(8, 80)).toBe(true);
     expect(sudokusolver.collidingIndex(0, 80)).toBe(false);
 });
+
+test('Test getRowStack by index', () => {
+    expect(sudokusolver.getRowStack(0)).toBe(0);
+    expect(sudokusolver.getRowStack(8)).toBe(0);
+    expect(sudokusolver.getRowStack(26)).toBe(0);
+    expect(sudokusolver.getRowStack(27)).toBe(1);
+    expect(sudokusolver.getRowStack(53)).toBe(1);
+    expect(sudokusolver.getRowStack(54)).toBe(2);
+});
+
+test('Test get rowindex', () => {
+    expect(sudokusolver.rowIndex(0)).toBe(0);
+    expect(sudokusolver.rowIndex(8)).toBe(0);
+    expect(sudokusolver.rowIndex(9)).toBe(1);
+    expect(sudokusolver.rowIndex(27)).toBe(3);
+});
+
+
+test('Test getColumnStack by index', () => {
+    expect(sudokusolver.getColumnStack(0)).toBe(0);
+    expect(sudokusolver.getColumnStack(2)).toBe(0);
+    expect(sudokusolver.getColumnStack(3)).toBe(1);
+    expect(sudokusolver.getColumnStack(5)).toBe(1);
+    expect(sudokusolver.getColumnStack(6)).toBe(2);
+    expect(sudokusolver.getColumnStack(8)).toBe(2);
+});
+
+
+
+test('Test validate sudoku - valid input', async () => {
+    expect.assertions(1);
+    let valid = await sudokusolver.validateSudoku(sudoku);
+    expect(valid).toBe(true);
+});
+
+test('Test validate sudoku - invalid input', async () => {
+    expect.assertions(1);
+    let valid = await sudokusolver.validateSudoku(sudokuFilledWrong);
+    expect(valid).toBe(false);
+});
+
+test('Test validate sudoku - valid input - evil', async () => {
+    expect.assertions(1);
+    let valid = await sudokusolver.validateSudoku(evil);
+    expect(valid).toBe(true);
+});
+
+
+test('Test validate sudoku - valid input - debugvalidatation', async () => {
+    expect.assertions(1);
+    let valid = await sudokusolver.validateSudoku(debugvalidatation);
+    expect(valid).toBe(true);
+});
+
+
+test('isValidValue', () => {
+    let valid = sudokusolver.isValidValue(sudoku, 0);
+    let nonValid = sudokusolver.isValidValue(sudokuFilledWrong, 0);
+    expect(valid).toBe(true);
+    expect(nonValid).toBe(false);
+});
+

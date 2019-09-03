@@ -12,10 +12,10 @@ async function importSudoku() {
     let sudoku = [];
     for (let i of webSudokuGrid) {
         let value = i.innerHTML;
-        let FormatedValue = value === "" ? undefined : parseInt(value);
+        let FormatedValue = value === "" ? null : parseInt(value);
         sudoku.push(FormatedValue);
     }
-    console.log("imported:" + sudoku);
+    console.log("imported len: " + sudoku.length + " sudoku: " + sudoku);
     return { resp: sudoku };
 }
 
