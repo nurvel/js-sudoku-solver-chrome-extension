@@ -7,7 +7,6 @@ async function sendToContent(action) {
 	return new Promise((resolve, reject) => {
 		try {
 			console.log('sendToContent');
-
 			let params = {
 				active: true,
 				currentWindow: true
@@ -75,7 +74,6 @@ async function solveSudoku() {
 	errorVisibility('hidden');
 
 	let sudokuFromGrid = await readSudokuGrid();
-	console.log(sudokuFromGrid);
 
 	try {
 		let solvelSudoku = await playSudoku(sudokuFromGrid);
@@ -127,7 +125,6 @@ function getFromStorage() {
 async function updateStateAfterInput() {
 	console.log('updateStateAfterInput');
 	let sudokuFromGrid = await readSudokuGrid();
-	console.log(sudokuFromGrid);
 	saveToStorage(sudokuFromGrid);
 	updateSudokuGrid(sudokuFromGrid);
 }
@@ -137,7 +134,6 @@ function numberSelectorPosition(event) {
 	numberSelectorDOM.style.left = event.clientX - 50 + 'px';
 	numberSelectorDOM.style.top = event.clientY - 50 + 'px';
 	numberSelectorDOM.style.visibility = 'visible';
-	console.log(event);
 	return event.target.id;
 }
 
@@ -204,7 +200,7 @@ function updateValueAfterClick(event, target) {
 			document.getElementById(target).innerHTML = inputValue;
 			break;
 		default:
-			console.log('Error updating sudoku grid with value: ' + inputValue);
+			console.error('Error updating sudoku grid with value: ' + inputValue);
 			break;
 	}
 	document.getElementsByClassName('number-inputter')[0].style.visibility = 'hidden';
@@ -231,5 +227,3 @@ function errorVisibility(visibility, msg) {
 
 	document.getElementsByClassName('error-msg')[0].style.visibility = visibility;
 }
-
-// TODO: check state of extention sudoku - update state of local storage? Does not save state if modified after import if toggle extention

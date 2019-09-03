@@ -15,9 +15,6 @@ const subGridCoordinates = [
 
 const functions = {
 	totalFreeSlots: (sudoku) => {
-		// let defined = sudoku.filter(x => x !== undefined).length;
-		// return sudoku.length - defined;
-
 		let undef = 0;
 		for (let i = 0; i <= 80; i++) {
 			if (sudoku[i] === undefined) {
@@ -47,9 +44,6 @@ const functions = {
 			}
 		}
 	},
-	// noUndefinedValues: (sudoku) => {
-
-	// },
 	getAvailableValues: (sudoku, indx) => {
 		let collidingValues = functions.getCollidingValues(sudoku, indx);
 		return possibleValues.filter((value) => {
@@ -96,13 +90,9 @@ const functions = {
 		return new Promise((resolve, reject) => {
 			console.log('Validate sudoku start');
 			try {
-				//functions.printSudoku(sudoku);
-
-				//console.log(sudoku);
 				if (functions.totalFreeSlots(sudoku) === 81) {
 					resolve(false);
 				}
-
 				// 1. subgrids have on only unique values
 				// 2. rows have only unique values
 				// 3. columns have only unique values
@@ -115,21 +105,16 @@ const functions = {
 
 				// fill values from sudoku to temp arrays (expext)
 				for (let i = 0; i < 81; i++) {
-					console.log('outer loop -  fill values: ' + i + ' value: ' + sudoku[i]);
-
 					if (sudoku[i] != undefined) {
 						let row = functions.rowIndex(i);
 						tepRows[row].push(sudoku[i]);
-						console.log('row OK');
 
 						let column = functions.columnIndex(i);
 						tempColumns[column].push(sudoku[i]);
-						console.log('column OK');
 
 						let subG = functions.subgridIndex(i);
 						console.log(subG);
 						tempSubGrids[subG].push(sudoku[i]);
-						console.log('subgrid OK');
 
 						let indexVal = sudoku[i];
 						// get row/colum stack (0-2)
@@ -143,26 +128,8 @@ const functions = {
 					}
 				}
 
-				console.log('after fill values');
-
-				// PRINTING
-				// for (let i = 0; i < tepRows.length; i++) {
-				//     // console.log("tepRows: " + tepRows[i]);
-				//     // console.log("tempColumns: " + tempColumns[i]);
-				//     // console.log("tempSubGrids: " + tempSubGrids[i]);
-				//     console.log(functions.noDublicatesInArray(tepRows[i]));
-				//     console.log(functions.noDublicatesInArray(tempColumns[i]));
-				//     console.log(functions.noDublicatesInArray(tempSubGrids[i]));
-				// }
-				// for (let i = 0; i < tempRowArray.length; i++) {
-				//     console.log("rowArray: " + tempRowArray[i]);
-				// }
-				// for (let i = 0; i < tempColumnArray.length; i++) {
-				//     console.log("columnArray: " + tempColumnArray[i]);
-				// }
-
+				// TEST FOR VALID
 				let valid = true;
-				// test valid
 
 				for (let i = 0; i < tepRows.length; i++) {
 					if (
@@ -189,8 +156,6 @@ const functions = {
 					}
 				}
 
-				//return valid;
-				//console.log("validation completed");
 				resolve(valid);
 			} catch (error) {
 				reject('Error when validating: ' + error);
@@ -227,34 +192,6 @@ const functions = {
 		if (ci >= 6 && ci <= 8) {
 			return 2;
 		}
-	},
-	printSudoku: (sudoku) => {
-		// TODO: FIX TO WORK WO PROCESS
-
-		let val = '';
-		for (let i = 0; i < sudoku.length; i++) {
-			val += sudoku[i] === undefined ? 0 : sudoku[i];
-			//process.stdout.write(val + " ");
-			val += ' ';
-
-			if ((i + 1) % 9 == 0) {
-				//process.stdout.write("\n");
-				//console.log(val);
-				val = '\n';
-			}
-
-			if ((i + 1) % 3 == 0 && (i + 1) % 9 != 0) {
-				//process.stdout.write("| ");
-				val += '| ';
-			}
-
-			if ((i + 1) % 27 == 0 && i != 80) {
-				//process.stdout.write("---------------------\n");
-				//console.log(("---------------------\n"));
-				val += '---------------------\n';
-			}
-		}
-		console.log(val);
 	}
 };
 
