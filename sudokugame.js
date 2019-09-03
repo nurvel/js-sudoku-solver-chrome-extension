@@ -8,17 +8,17 @@ import { functions } from './sudokusolver.js';
 async function playSudoku(sudoku) {
 	console.log('start validate ');
 
+	let valid = await functions.validateSudoku(sudoku);
+	if (!valid) {
+		console.log(sudoku);
+		throw 'Sudoku not valid!';
+    }
+    
     let freeslots = functions.totalFreeSlots(sudoku);
     console.log(freeslots);
 	if (freeslots >= 55) {
 		console.log(sudoku);
 		throw 'No evil sudokus please :/';
-	}
-
-	let valid = await functions.validateSudoku(sudoku);
-	if (!valid) {
-		console.log(sudoku);
-		throw 'Sudoku not valid!';
 	}
 
 	console.log('start solve');

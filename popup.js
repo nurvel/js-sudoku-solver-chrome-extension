@@ -189,7 +189,7 @@ function updateValueAfterClick(event, target) {
 	console.log(event);
 	let inputValue = event.srcElement.innerHTML;
 	switch (inputValue) {
-		case '0':
+		case '-':
 			document.getElementById(target).innerHTML = '';
 			break;
 		case '1':
