@@ -1,10 +1,9 @@
 //const playSudoku = require('./sudokugame.js');
 import { playSudoku } from './sudokugame.js';
 
-//import './popup.html'
-
 import './style.css';
-
+import './icon_128.png';
+import './icon.png';
 
 let sudokuGridCSSselector = '.sudoku-grid';
 

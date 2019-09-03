@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 // const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
@@ -29,7 +31,10 @@ module.exports = {
 			template: './src/popup.html',
 			filename: './popup.html',
 			chunks: [ 'popup' ]
-		})
+		}),
+		new CopyWebpackPlugin([
+			{ from: './manifest.json', to: './manifest.json' }
+		  ])
 	],
 	module: {
 		rules: [
@@ -49,7 +54,14 @@ module.exports = {
 			},
 			{
 				test: /\.(png|jpg)/,
-				use: [ { loader: 'url-loader' } ]
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+							name: '[name].[ext]'
+						}
+					}
+				]
 			},
 			{
 				test: /\.html$/,
