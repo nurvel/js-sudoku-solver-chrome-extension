@@ -24,12 +24,4 @@ function printSudoku(sudoku) {
     process.stdout.write("\n");
 }
 
-let juttu = [,2,,,4,,,9,,,,,,,7,3,2,,6,,3,8,,,,,,3,,,2,7,,,,9,,,1,,5,,8,,,8,,,,3,9,,,5,,,,,,5,4,,6,,1,7,9,,,,,,,8,,,2,,,1,];
-
-// printSudoku(juttu);
-// console.log(juttu.length);
-
-// let testi1 = [,2];
-// console.log(testi1.length);
-
 module.exports = printSudoku;

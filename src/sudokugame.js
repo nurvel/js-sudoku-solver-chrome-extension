@@ -1,12 +1,7 @@
-//const functions = require('./sudokusolver');
 import { functions } from './sudokusolver.js';
 
-// const sudokuprint = require('./sudokuprint');
-// const sudokudata = require('./sudoku-data');
-// const sudoku = sudokudata.correct[1];
-
 async function playSudoku(sudoku) {
-	console.log('start validate ');
+	console.log('Start validate ');
 
 	let valid = await functions.validateSudoku(sudoku);
 	if (!valid) {
@@ -21,10 +16,10 @@ async function playSudoku(sudoku) {
 		throw 'No evil sudokus please :/';
 	}
 
-	console.log('start solve');
+	console.log('Start solve');
 	// DIFFERENT ALGOS AVAILABLE BELOW: backTracking with and without recursion
 	let solvedSudoku = await solveSudoku(sudoku);
-	console.log('end solve');
+	console.log('End solve');
 	console.log(solvedSudoku);
 	
 	return solvedSudoku;
@@ -34,15 +29,13 @@ async function solveSudoku(sudoku) {
 	// console.log("start solveSudoku");
 
 	if (functions.totalFreeSlots(sudoku) === 0) {
-		console.log('found solution: ' + sudoku.length);
-		console.log(sudoku);
+		console.log('Found solution: ' + sudoku);
 		return sudoku;
 	}
 
 	let nextFreeSlot = functions.getNextFreeSlot(sudoku);
 	if (nextFreeSlot === null) {
-		console.log('No more solutions to test');
-		console.log(sudoku);
+		console.log('No more solutions to test - unresolved');
 		return sudoku;
 	}
 
@@ -80,8 +73,7 @@ function getBestCandidate(candidates) {
 async function solveBackTracking(sudoku) {
 	try {
 		if (functions.getNextFreeSlot(sudoku) === null) {
-			console.log('Resolved!');
-			console.log(sudoku);
+			console.log('Found solution: ' + sudoku);
 			return sudoku;
 		}
 
@@ -139,8 +131,7 @@ async function solveBackTrackingNonRecursive(inputSudoku) {
 		}
 
 		if (functions.totalFreeSlots(sudoku) === 0 && functions.isValidValue(sudoku, pointer)) {
-			console.log('found solution: ' + sudoku);
-			console.log(sudoku);
+			console.log('Found solution: ' + sudoku);
 			solved = true;
 			break;
 		}

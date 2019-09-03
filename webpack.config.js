@@ -58,10 +58,6 @@ module.exports = {
 				test: /\.html$/,
 				use: [ { loader: 'html-loader' } ]
 			}
-			// {
-			// 	test: /\.html/,
-			// 	use: { loader: 'file-loader?name=[name].[ext]' }
-			// }
 		]
 	}
 };
