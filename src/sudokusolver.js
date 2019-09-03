@@ -88,7 +88,6 @@ const functions = {
 		// TODO: Refactor - extract method
 
 		return new Promise((resolve, reject) => {
-			console.log('Validate sudoku start');
 			try {
 				if (functions.totalFreeSlots(sudoku) === 81) {
 					resolve(false);
@@ -113,7 +112,6 @@ const functions = {
 						tempColumns[column].push(sudoku[i]);
 
 						let subG = functions.subgridIndex(i);
-						console.log(subG);
 						tempSubGrids[subG].push(sudoku[i]);
 
 						let indexVal = sudoku[i];
