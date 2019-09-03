@@ -192,13 +192,19 @@ window.addEventListener('load', function() {
 function openPopUp(element) {
 	console.log('openPopUp called');
 	//let numberSelectorDOM = document.getElementsByClassName('number-inputter')[0];
-    document.getElementById('1').onclick = () => console.log('hihhihih, kutittaa');
-    document.getElementById('1').onclick = (event) => updateValueAfterClick(1, element);
+    let elems = document.getElementsByClassName('nr-input');
+    for(let e of elems){
+        e.onclick = () => console.log('hihhihih, kutittaa');
+        e.onclick = (event) => updateValueAfterClick(event, element);
+    }
+
+    //document.getElementById('1').onclick = (event) => updateValueAfterClick(1, element);
 
 }
 
-function updateValueAfterClick(num, target) {
-    document.getElementById(target).innerHTML = num;
+function updateValueAfterClick(event, target) {
+    console.log(event);
+    document.getElementById(target).innerHTML = event.srcElement.innerHTML;
 	document.getElementsByClassName('number-inputter')[0].style.visibility = 'hidden';
 }
 
