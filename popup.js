@@ -1,7 +1,7 @@
 //const playSudoku = require('./sudokugame.js');
 import { playSudoku } from '/sudokugame.js';
 
-let sudokuGridCSSselector = 'td input';
+let sudokuGridCSSselector = '.sudoku-grid';
 
 async function sendToContent(action) {
 	return new Promise((resolve, reject) => {
@@ -31,9 +31,9 @@ function updateSudokuGrid(sudoku) {
 	let extensionSudokuGrid = document.querySelectorAll(sudokuGridCSSselector);
 	for (let i = 0; i < extensionSudokuGrid.length; i++) {
 		if (sudoku.resp[i] != null) {
-			extensionSudokuGrid[i].setAttribute('value', sudoku.resp[i]);
+			extensionSudokuGrid[i].innerHTML = sudoku.resp[i];
 		} else {
-			extensionSudokuGrid[i].setAttribute('value', '');
+			extensionSudokuGrid[i].innerHTML = '';
 		}
 	}
 }
@@ -46,7 +46,7 @@ async function readSudokuGrid() {
 			let extensionSudokuGrid = document.querySelectorAll(sudokuGridCSSselector);
 			let sudoku = [];
 			for (let i = 0; i < extensionSudokuGrid.length; i++) {
-				let value = extensionSudokuGrid[i].getAttribute('value');
+				let value = extensionSudokuGrid[i].innerHTML;
 				value = value === '' ? undefined : parseInt(value);
 				sudoku.push(value);
 			}
@@ -126,11 +126,6 @@ function getFromStorage() {
 
 async function updateStateAfterInput() {
 	console.log('updateStateAfterInput');
-
-	// var active = document.activeElement.tagName;
-	// console.log(active);
-	// active[0].setAttribute('value', 1);
-
 	let sudokuFromGrid = await readSudokuGrid();
 	console.log(sudokuFromGrid);
 	saveToStorage(sudokuFromGrid);
@@ -138,19 +133,12 @@ async function updateStateAfterInput() {
 }
 
 function numberSelectorPosition(event) {
-	console.log('you clicked me!');
 	let numberSelectorDOM = document.getElementsByClassName('number-inputter')[0];
-	let x = event.clientX;
-	let y = event.clientY;
-	numberSelectorDOM.style.left = x + 'px';
-	numberSelectorDOM.style.top = y + 'px';
+	numberSelectorDOM.style.left = event.clientX + 'px';
+	numberSelectorDOM.style.top = event.clientY + 'px';
 	numberSelectorDOM.style.visibility = 'visible';
-    console.log(event.target.id);
+	console.log(event);
 	return event.target.id;
-}
-
-function inputValue(value) {
-	console.log('my value: ' + input);
 }
 
 // updated grid when pop-up opens
@@ -189,53 +177,34 @@ window.addEventListener('load', function() {
 	});
 });
 
-function openPopUp(element) {
+function handlePopUpInput(element) {
 	console.log('openPopUp called');
-	//let numberSelectorDOM = document.getElementsByClassName('number-inputter')[0];
-    let elems = document.getElementsByClassName('nr-input');
-    for(let e of elems){
-        e.onclick = () => console.log('hihhihih, kutittaa');
-        e.onclick = (event) => updateValueAfterClick(event, element);
-    }
-
-    //document.getElementById('1').onclick = (event) => updateValueAfterClick(1, element);
-
+	let elems = document.getElementsByClassName('nr-input');
+	for (let e of elems) {
+		e.onclick = (event) => updateValueAfterClick(event, element);
+	}
 }
 
 function updateValueAfterClick(event, target) {
-    console.log(event);
-    document.getElementById(target).innerHTML = event.srcElement.innerHTML;
+	console.log(event);
+	document.getElementById(target).innerHTML = event.srcElement.innerHTML;
 	document.getElementsByClassName('number-inputter')[0].style.visibility = 'hidden';
 }
 
 window.addEventListener('load', function() {
-	let inputs = document.getElementsByClassName('testi');
-	console.log('moikka' + inputs[0]);
-	// inputs[0].addEventListener('click', numberSelectorPosition);
+	let inputs = document.getElementsByClassName('sudoku-grid');
 
-	inputs[0].addEventListener('click', (event) => {
-		let element = numberSelectorPosition(event);
-		console.log('jii ' + element);
-		openPopUp(element);
-	});
-
-	// let ins = document.getElementsByClassName('nr-input');
-	// for (let index = 0; index < ins.length; index++) {
-	// 	ins[index].addEventListener('click', (numberSelectorPosition) => {
-	// 		let value = this.innerHTML;
-	// 		let position = numberSelectorPosition();
-	// 		position.innerHTML = '1';
-	// 	});
-	// }
-});
-
-window.addEventListener('load', function() {
-	let inputs = document.getElementsByClassName('nr-input');
-
-	for (let index = 0; index < inputs.length; index++) {
-		const el = inputs[index];
-		el;
+	for (let e of inputs) {
+		e.addEventListener('click', (event) => {
+			let element = numberSelectorPosition(event);
+			this.console.log(element);
+			handlePopUpInput(element);
+		});
 	}
+	// inputs[0].addEventListener('click', (event) => {
+	// 	let element = numberSelectorPosition(event);
+	// 	handlePopUpInput(element);
+	// });
 });
 
 function errorVisibility(visibility) {
