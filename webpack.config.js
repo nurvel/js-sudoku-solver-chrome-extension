@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
-	mode: process.env.NODE_ENV || "development",
+	mode: process.env.NODE_ENV || 'development',
 	entry: {
 		content: './src/content.js',
 		popup: './src/popup.js'
@@ -26,10 +26,9 @@ module.exports = {
 	// },
 	plugins: [
 		new HtmlWebpackPlugin({
-            template: "./src/popup.html",
-			// template: path.resolve(__dirname, './src/popup.html'),
-			filename: './popup.html'
-			,chunks: ["popup"]
+			template: './src/popup.html',
+			filename: './popup.html',
+			chunks: [ 'popup' ]
 		})
 	],
 	module: {
@@ -50,9 +49,7 @@ module.exports = {
 			},
 			{
 				test: /\.(png|jpg)/,
-				use: [
-					{loader: 'url-loader'}
-				]
+				use: [ { loader: 'url-loader' } ]
 			},
 			{
 				test: /\.html$/,

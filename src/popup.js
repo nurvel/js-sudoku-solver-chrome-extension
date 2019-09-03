@@ -3,6 +3,9 @@ import { playSudoku } from './sudokugame.js';
 
 //import './popup.html'
 
+import './style.css';
+
+
 let sudokuGridCSSselector = '.sudoku-grid';
 
 async function sendToContent(action) {
