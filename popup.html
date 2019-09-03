@@ -123,12 +123,40 @@
             margin: 0;
             width: 25pt;
         }
+        .number-inputter {
+            visibility: hidden;
+            position: absolute;
+            z-index: 10;
+            background-color: grey;
+        }
+        .number-inputter td:hover {
+            background-color: salmon;
+        }
     </style>
 
 </head>
 
 <body>
 
+    <div class="number-inputter">
+        <table>
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+                <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+            </tr>
+        </table>
+    </div>
     <div class="modal-header">
         <h1>Sudoku Solver
         </h1>
@@ -151,8 +179,8 @@
 
         <table>
             <tr>
-                <td>
-                    <input autocomplete="off" maxlength="1" value="" readonly>
+                <td class="testi">
+                    1
                 </td>
                 <td>
                     <input autocomplete="off" maxlength="1" value="" readonly>

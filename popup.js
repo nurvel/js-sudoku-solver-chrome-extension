@@ -126,10 +126,25 @@ function getFromStorage() {
 
 async function updateStateAfterInput() {
 	console.log('updateStateAfterInput');
+
+	// var active = document.activeElement.tagName;
+	// console.log(active);
+	// active[0].setAttribute('value', 1);
+
 	let sudokuFromGrid = await readSudokuGrid();
 	console.log(sudokuFromGrid);
 	saveToStorage(sudokuFromGrid);
 	updateSudokuGrid(sudokuFromGrid);
+}
+
+function numberSelectorPosition() {
+	console.log('you clicked me!');
+	let numberSelectorDOM = document.getElementsByClassName('number-inputter')[0];
+	let x = event.clientX;
+	let y = event.clientY;
+	numberSelectorDOM.style.left = x + 'px';
+	numberSelectorDOM.style.top = y + 'px';
+	numberSelectorDOM.style.visibility = 'visible';
 }
 
 // updated grid when pop-up opens
@@ -164,7 +179,18 @@ window.addEventListener('load', function() {
 window.addEventListener('load', function() {
 	let inputs = document.querySelectorAll('input');
 	inputs.forEach((inputField) => {
-		inputField.addEventListener('change', updateStateAfterInput);
+		inputField.addEventListener('click', updateStateAfterInput);
+	});
+});
+
+window.addEventListener('load', function() {
+	let inputs = document.getElementsByClassName('testi');
+	console.log('moikka' + inputs[0]);
+	inputs[0].addEventListener('click', numberSelectorPosition);
+
+	inputs.forEach((inputField) => {
+		console.log('moi');
+		inputField.addEventListener('click', numberSelectorPosition);
 	});
 });
 
