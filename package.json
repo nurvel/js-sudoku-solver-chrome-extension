@@ -4,7 +4,7 @@
   "description": "",
   "main": "sudokusolver.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest ./test"
   },
   "keywords": [],
   "author": "",

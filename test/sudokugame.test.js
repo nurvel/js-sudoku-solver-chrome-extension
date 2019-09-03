@@ -1,6 +1,6 @@
-import { solveSudoku, solveBackTracking, solveBackTrackingNonRecursive } from 'sudokugame.js';
+import { solveSudoku, solveBackTracking, solveBackTrackingNonRecursive } from '../src/sudokugame.js';
 const sudokudata = require('./sudoku-data');
-const printSudoku = require('./sudokuprint');
+const printSudoku = require('../src/sudokuprint');
 
 //const playSudoku = require('./sudokugame');
 
