@@ -137,7 +137,7 @@ async function updateStateAfterInput() {
 	updateSudokuGrid(sudokuFromGrid);
 }
 
-function numberSelectorPosition() {
+function numberSelectorPosition(event) {
 	console.log('you clicked me!');
 	let numberSelectorDOM = document.getElementsByClassName('number-inputter')[0];
 	let x = event.clientX;
@@ -145,6 +145,12 @@ function numberSelectorPosition() {
 	numberSelectorDOM.style.left = x + 'px';
 	numberSelectorDOM.style.top = y + 'px';
 	numberSelectorDOM.style.visibility = 'visible';
+    console.log(event.target.id);
+	return event.target.id;
+}
+
+function inputValue(value) {
+	console.log('my value: ' + input);
 }
 
 // updated grid when pop-up opens
@@ -183,15 +189,47 @@ window.addEventListener('load', function() {
 	});
 });
 
+function openPopUp(element) {
+	console.log('openPopUp called');
+	//let numberSelectorDOM = document.getElementsByClassName('number-inputter')[0];
+    document.getElementById('1').onclick = () => console.log('hihhihih, kutittaa');
+    document.getElementById('1').onclick = (event) => updateValueAfterClick(1, element);
+
+}
+
+function updateValueAfterClick(num, target) {
+    document.getElementById(target).innerHTML = num;
+	document.getElementsByClassName('number-inputter')[0].style.visibility = 'hidden';
+}
+
 window.addEventListener('load', function() {
 	let inputs = document.getElementsByClassName('testi');
 	console.log('moikka' + inputs[0]);
-	inputs[0].addEventListener('click', numberSelectorPosition);
+	// inputs[0].addEventListener('click', numberSelectorPosition);
 
-	inputs.forEach((inputField) => {
-		console.log('moi');
-		inputField.addEventListener('click', numberSelectorPosition);
+	inputs[0].addEventListener('click', (event) => {
+		let element = numberSelectorPosition(event);
+		console.log('jii ' + element);
+		openPopUp(element);
 	});
+
+	// let ins = document.getElementsByClassName('nr-input');
+	// for (let index = 0; index < ins.length; index++) {
+	// 	ins[index].addEventListener('click', (numberSelectorPosition) => {
+	// 		let value = this.innerHTML;
+	// 		let position = numberSelectorPosition();
+	// 		position.innerHTML = '1';
+	// 	});
+	// }
+});
+
+window.addEventListener('load', function() {
+	let inputs = document.getElementsByClassName('nr-input');
+
+	for (let index = 0; index < inputs.length; index++) {
+		const el = inputs[index];
+		el;
+	}
 });
 
 function errorVisibility(visibility) {
