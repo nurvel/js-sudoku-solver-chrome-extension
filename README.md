@@ -16,9 +16,9 @@
     - DOM scraping and manipulation
 
 ## Try it out
-Extension is waiting to be released in Chrome App Store.
-In the mean while local testing is possible as follows.
+Extension availabled in Chrome App Store - [check it out](https://chrome.google.com/webstore/detail/sudoku-solver/elhpkohfgpfdgkboabmhllkihpcccaka?hl=fi)
 
+OR..
 1. clone repo
 2. npm install
 3. npm run build
